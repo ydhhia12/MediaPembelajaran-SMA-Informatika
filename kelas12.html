@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Beranda Kelas 12</title>
+  <!-- Pakai Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #13008f;
+      margin: 0;
+      padding: 40px 20px;
+      color: #2e2c4a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2.5rem;
+      color: #ffffff; /* ungu tua */
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ffffff; /* ungu abu */
+    }
+    .btn-group {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 700px;
+      width: 100%;
+    }
+    .btn {
+      background: linear-gradient(135deg, #6c63ff, #3a3dc8); /* ungu ke biru */
+      color: white;
+      padding: 18px 35px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 15px rgba(108, 99, 255, 0.4);
+      transition: all 0.3s ease;
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #574fde, #2b2fad);
+      box-shadow: 0 12px 20px rgba(87, 79, 222, 0.6);
+      transform: translateY(-3px);
+    }
+    nav {
+      margin-top: 40px;
+    }
+    nav a {
+      color: #6c63ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #3a3dc8;
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .btn {
+        font-size: 1rem;
+        padding: 15px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Selamat Datang di Kelas 12</h1>
+    <p>Pilih materi atau kuis yang ingin kamu akses</p>
+  </header>
+
+  <div class="btn-group">
+    <a href="materi12-1.html" class="btn">Materi Semester 1</a>
+    <a href="materi12-2.html" class="btn">Materi Semester 2</a>
+    <a href="kuis12.html" class="btn">Kuis</a>
+  </div>
+
+  <nav>
+    <a href="logout.html">Logout</a>
+  </nav>
+</body>
+</html>

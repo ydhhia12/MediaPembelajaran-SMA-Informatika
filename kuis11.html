@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kuis 112</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f0f4ff;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2a3b8e;
+    }
+    .soal {
+      margin-bottom: 25px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .opsi label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      background-color: #2a3b8e;
+      border: none;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d2b65;
+    }
+    #hasil {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kuis 112</h1>
+
+  <form id="formKuis">
+    <div id="soalContainer">
+      <!-- Soal akan dimuat di sini -->
+    </div>
+
+    <button type="submit">Kirim Jawaban</button>
+  </form>
+
+  <div id="hasil"></div>
+
+<script>
+  // Sesuaikan bab dan kelas untuk kuis ini
+  const bab = '5,6';
+  const kelas = '11';
+
+  // Ambil soal dari localStorage yang sesuai bab & kelas & jenis PG
+  function getSoalPG() {
+    const soal = JSON.parse(localStorage.getItem('soal')) || [];
+    return soal.filter(s => s.bab === bab && s.kelas === kelas && s.jenisSoal === 'pilihan_ganda');
+  }
+
+  // Render soal ke form
+  function renderSoal() {
+    const container = document.getElementById('soalContainer');
+    const soalList = getSoalPG();
+
+    if (soalList.length === 0) {
+      container.innerHTML = '<p>Tidak ada soal untuk kuis ini.</p>';
+      return;
+    }
+
+    container.innerHTML = '';
+    soalList.forEach((item, idx) => {
+      container.innerHTML += `
+        <div class="soal">
+          <p><strong>Soal ${idx + 1}:</strong> ${item.isiSoal}</p>
+          <div class="opsi">
+            <label><input type="radio" name="jawaban${idx}" value="A" required> A. ${item.pilihanA}</label>
+            <label><input type="radio" name="jawaban${idx}" value="B"> B. ${item.pilihanB}</label>
+            <label><input type="radio" name="jawaban${idx}" value="C"> C. ${item.pilihanC}</label>
+            <label><input type="radio" name="jawaban${idx}" value="D"> D. ${item.pilihanD}</label>
+            <label><input type="radio" name="jawaban${idx}" value="E"> E. ${item.pilihanE}</label>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // Submit dan hitung nilai
+  document.getElementById('formKuis').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const soalList = getSoalPG();
+    let nilai = 0;
+
+    for(let i = 0; i < soalList.length; i++) {
+      const jawaban = document.querySelector(`input[name="jawaban${i}"]:checked`);
+      if (jawaban && jawaban.value === soalList[i].jawabanBenar) {
+        nilai++;
+      }
+    }
+
+    // Simpan hasil nilai ke localStorage dengan key 'hasilKuis101' (bisa diganti sesuai kuis)
+    const username = prompt("Masukkan nama/nim kamu:") || "Anonim";
+
+    const hasil = {
+      username,
+      nilai,
+      total: soalList.length,
+      waktu: new Date().toLocaleString(),
+    };
+
+    let rekap = JSON.parse(localStorage.getItem('hasilKuis101')) || [];
+    rekap.push(hasil);
+    localStorage.setItem('hasilKuis101', JSON.stringify(rekap));
+
+    document.getElementById('hasil').textContent = `Nilai kamu: ${nilai} / ${soalList.length}`;
+    this.querySelector('button').disabled = true;
+  });
+
+  // Load soal saat halaman siap
+  renderSoal();
+</script>
+
+</body>
+</html>
