@@ -29,6 +29,7 @@
       justify-content: center;
       gap: 20px;
       margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     nav button {
@@ -40,6 +41,7 @@
       cursor: pointer;
       font-weight: 600;
       transition: background 0.3s ease;
+      white-space: nowrap;
     }
 
     nav button:hover {
@@ -177,6 +179,7 @@
   <nav>
     <button onclick="showSection('akun')">👥 Kelola Akun Siswa</button>
     <button onclick="showSection('soal')">📝 Kelola Soal Kuis</button>
+    <button onclick="showSection('materi')">📚 Kelola Materi Pembelajaran</button>
     <button onclick="showSection('nilai')">📊 Rekap Nilai Siswa</button>
   </nav>
 
@@ -276,9 +279,58 @@
     </table>
   </section>
 
+  <!-- Kelola Materi -->
+  <section id="materi">
+    <h2>Kelola Materi Pembelajaran</h2>
+    <form id="formMateri">
+      <label>Judul Materi</label>
+      <input type="text" id="judulMateri" placeholder="Judul materi" required />
+      <label>Konten Materi (teks, link, video embed)</label>
+      <textarea id="kontenMateri" placeholder="Tulis konten materi atau embed video/link..." required></textarea>
+      <label>Kelas</label>
+      <select id="kelasMateri" required>
+        <option value="">-- Pilih Kelas --</option>
+        <option value="10">Kelas 10</option>
+        <option value="11">Kelas 11</option>
+        <option value="12">Kelas 12</option>
+      </select>
+      <label>Semester</label>
+      <select id="semesterMateri" required>
+        <option value="">-- Pilih Semester --</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+      </select>
+      <button type="submit" class="submit-btn">Tambah Materi</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Judul Materi</th>
+          <th>Konten</th>
+          <th>Kelas</th>
+          <th>Semester</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="materiList"></tbody>
+    </table>
+  </section>
+
   <!-- Rekap Nilai -->
   <section id="nilai">
     <h2>Rekap Nilai Siswa</h2>
+
+    <button id="resetNilaiBtn" style="
+      background:#d63031; 
+      color:#fff; 
+      border:none; 
+      padding:10px 20px; 
+      border-radius:12px; 
+      font-weight:700; 
+      cursor:pointer;
+      margin-bottom:15px;
+    ">Reset Semua Nilai</button>
 
     <table>
       <thead>
@@ -300,7 +352,7 @@
 <script>
   // Tampilkan section sesuai tombol
   function showSection(id) {
-    ['akun', 'soal', 'nilai'].forEach(s => {
+    ['akun', 'soal', 'materi', 'nilai'].forEach(s => {
       document.getElementById(s).classList.toggle('active', s === id);
     });
   }
@@ -495,9 +547,71 @@
 
   renderSoal();
 
-  // --- REKAP NILAI ---
+  // --- KELOLA MATERI ---
 
-  // Ambil data nilai dari localStorage
+  const formMateri = document.getElementById('formMateri');
+  const materiList = document.getElementById('materiList');
+
+  function renderMateri() {
+    const materiData = getData('materi');
+    materiList.innerHTML = '';
+    materiData.forEach((item, i) => {
+      // untuk menampilkan konten pendek (potong kalau panjang)
+      let kontenSingkat = item.kontenMateri.length > 80 ? item.kontenMateri.substring(0,80) + '...' : item.kontenMateri;
+
+      materiList.innerHTML += `
+        <tr>
+          <td>${item.judulMateri}</td>
+          <td>${kontenSingkat}</td>
+          <td>${item.kelas}</td>
+          <td>${item.semester}</td>
+          <td>
+            <button class="delete-btn" data-index="${i}">Hapus</button>
+          </td>
+        </tr>`;
+    });
+
+    document.querySelectorAll('#materiList .delete-btn').forEach(btn => {
+      btn.onclick = e => {
+        const idx = e.target.getAttribute('data-index');
+        if(confirm('Hapus materi ini?')) {
+          let materiData = getData('materi');
+          materiData.splice(idx,1);
+          saveData('materi', materiData);
+          renderMateri();
+        }
+      }
+    });
+  }
+
+  formMateri.addEventListener('submit', e => {
+    e.preventDefault();
+    const judulMateri = document.getElementById('judulMateri').value.trim();
+    const kontenMateri = document.getElementById('kontenMateri').value.trim();
+    const kelas = document.getElementById('kelasMateri').value;
+    const semester = document.getElementById('semesterMateri').value;
+
+    if(!judulMateri || !kontenMateri || !kelas || !semester){
+      alert('Semua field harus diisi!');
+      return;
+    }
+
+    let materiData = getData('materi');
+    materiData.push({
+      judulMateri,
+      kontenMateri,
+      kelas,
+      semester
+    });
+    saveData('materi', materiData);
+    renderMateri();
+    formMateri.reset();
+  });
+
+  renderMateri();
+
+  // --- REKAP NILAI ---
+// Ambil data nilai dari localStorage
   // Nilai disimpan format:
   // [{ username, nama, kelas, bab, semester, jenisSoal, nilai, status: 'pg'/'esai', nilaiEsai: null }]
 
@@ -553,6 +667,15 @@
   }
 
   renderNilai();
+
+  // Tambah fungsi reset nilai
+  document.getElementById('resetNilaiBtn').onclick = () => {
+    if(confirm('Yakin ingin menghapus semua data nilai? Tindakan ini tidak bisa dibatalkan.')) {
+      localStorage.removeItem('nilai');
+      renderNilai();
+      alert('Semua data nilai sudah dihapus.');
+    }
+  };
 
 </script>
 
