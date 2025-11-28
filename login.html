@@ -1,288 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login Media Pembelajaran</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6c63ff, #3a3dc8);
-
-      /* Flexbox untuk center vertikal dan horizontal */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      color: #fff;
-    }
-
-    .login-container {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 40px 35px;
-      border-radius: 16px;
-      width: 360px; /* Ukuran fixed di desktop */
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      text-align: center;
-      color: #fff;
-
-      /* Biar tinggi minimal pas isinya */
-      max-width: 90vw;
-    }
-
-    .login-container h2 {
-      margin-bottom: 30px;
-      font-weight: 700;
-      font-size: 2rem;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    input[type="text"],
-    input[type="password"] {
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: none;
-      font-size: 1rem;
-      outline: none;
-      transition: box-shadow 0.3s ease;
-    }
-
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      box-shadow: 0 0 10px #7c78b8;
-      background: #fff;
-      color: #333;
-    }
-
-    button {
-      padding: 14px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(45deg, #7c78b8, #5a4e8a);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      box-shadow: 0 6px 15px rgba(92,85,150,0.6);
-    }
-
-    button:hover {
-      background: linear-gradient(45deg, #5a4e8a, #7c78b8);
-    }
-
-    .error {
-      color: #ff6b6b;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 5px;
-      min-height: 24px;
-      user-select: none;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #ddd;
-      padding: 10px 0;
-      background: rgba(0, 0, 0, 0.3);
-      font-family: 'Poppins', sans-serif;
-      user-select: none;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    /* Responsif untuk layar kecil */
-    @media (max-width: 480px) {
-      .login-container {
-        width: 90vw; /* Lebar hampir penuh layar HP */
-        padding: 30px 20px;
-      }
-
-      input[type="text"],
-      input[type="password"],
-      button {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <form onsubmit="login(event)">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
 
-<div class="login-container">
-  <h2>Login Pengguna</h2>
-  <div class="error" id="errorMsg"></div>
-  <form id="loginForm" autocomplete="off">
-    <input type="text" id="username" placeholder="Username" required autofocus />
-    <input type="password" id="password" placeholder="Password" required />
-    <button type="submit">Masuk</button>
-  </form>
-</div>
-
+    <p id="login-message"></p>
+    <p style="margin-top:15px;">Belum punya akun? <a href="register.html">Register</a></p>
+  </div>
 <footer>
-  &copy; 2025 Informatics Learning Media. All rights reserved.
-</footer>
-
-<script>
-  const users = [
-   { username: 'siswa1', password: 'siswa110' },
-  { username: 'siswa2', password: 'siswa210' },
-  { username: 'siswa3', password: 'siswa310' },
-  { username: 'siswa4', password: 'siswa410' },
-  { username: 'siswa5', password: 'siswa510' },
-  { username: 'siswa6', password: 'siswa610' },
-  { username: 'siswa7', password: 'siswa710' },
-  { username: 'siswa8', password: 'siswa810' },
-  { username: 'siswa9', password: 'siswa910' },
-  { username: 'siswa10', password: 'siswa1010' },
-  { username: 'siswa11', password: 'siswa1110' },
-  { username: 'siswa12', password: 'siswa1210' },
-  { username: 'siswa13', password: 'siswa1310' },
-  { username: 'siswa14', password: 'siswa1410' },
-  { username: 'siswa15', password: 'siswa1510' },
-  { username: 'siswa16', password: 'siswa1610' },
-  { username: 'siswa17', password: 'siswa1710' },
-  { username: 'siswa18', password: 'siswa1810' },
-  { username: 'siswa19', password: 'siswa1910' },
-  { username: 'siswa20', password: 'siswa2010' },
-  { username: 'siswa21', password: 'siswa2110' },
-  { username: 'siswa22', password: 'siswa2210' },
-  { username: 'siswa23', password: 'siswa2310' },
-  { username: 'siswa24', password: 'siswa2410' },
-  { username: 'siswa25', password: 'siswa2510' },
-  { username: 'siswa26', password: 'siswa2610' },
-  { username: 'siswa27', password: 'siswa2710' },
-  { username: 'siswa28', password: 'siswa2810' },
-  { username: 'siswa29', password: 'siswa2910' },
-  { username: 'siswa30', password: 'siswa3010' },
-  { username: 'siswa31', password: 'siswa3110' },
-  { username: 'siswa32', password: 'siswa3210' },
-  { username: 'siswa33', password: 'siswa3310' },
-  { username: 'siswa34', password: 'siswa3410' },
-  { username: 'siswa35', password: 'siswa3510' },
-  { username: 'siswa36', password: 'siswa3610' },
-
-{ username: 'siswa1', password: 'siswa111' },
-  { username: 'siswa2', password: 'siswa211' },
-  { username: 'siswa3', password: 'siswa311' },
-  { username: 'siswa4', password: 'siswa411' },
-  { username: 'siswa5', password: 'siswa511' },
-  { username: 'siswa6', password: 'siswa611' },
-  { username: 'siswa7', password: 'siswa711' },
-  { username: 'siswa8', password: 'siswa811' },
-  { username: 'siswa9', password: 'siswa911' },
-  { username: 'siswa10', password: 'siswa1011' },
-  { username: 'siswa11', password: 'siswa1111' },
-  { username: 'siswa12', password: 'siswa1211' },
-  { username: 'siswa13', password: 'siswa1311' },
-  { username: 'siswa14', password: 'siswa1411' },
-  { username: 'siswa15', password: 'siswa1511' },
-  { username: 'siswa16', password: 'siswa1611' },
-  { username: 'siswa17', password: 'siswa1711' },
-  { username: 'siswa18', password: 'siswa1811' },
-  { username: 'siswa19', password: 'siswa1911' },
-  { username: 'siswa20', password: 'siswa2011' },
-  { username: 'siswa21', password: 'siswa2111' },
-  { username: 'siswa22', password: 'siswa2211' },
-  { username: 'siswa23', password: 'siswa2311' },
-  { username: 'siswa24', password: 'siswa2411' },
-  { username: 'siswa25', password: 'siswa2511' },
-  { username: 'siswa26', password: 'siswa2611' },
-  { username: 'siswa27', password: 'siswa2711' },
-  { username: 'siswa28', password: 'siswa2811' },
-  { username: 'siswa29', password: 'siswa2911' },
-  { username: 'siswa30', password: 'siswa3011' },
-  { username: 'siswa31', password: 'siswa3111' },
-  { username: 'siswa32', password: 'siswa3211' },
-  { username: 'siswa33', password: 'siswa3311' },
-  { username: 'siswa34', password: 'siswa3411' },
-  { username: 'siswa35', password: 'siswa3511' },
-  { username: 'siswa36', password: 'siswa3611' },
-
-    { username: 'siswa1', password: 'siswa112' },
-  { username: 'siswa2', password: 'siswa212' },
-  { username: 'siswa3', password: 'siswa312' },
-  { username: 'siswa4', password: 'siswa412' },
-  { username: 'siswa5', password: 'siswa512' },
-  { username: 'siswa6', password: 'siswa612' },
-  { username: 'siswa7', password: 'siswa712' },
-  { username: 'siswa8', password: 'siswa812' },
-  { username: 'siswa9', password: 'siswa912' },
-  { username: 'siswa10', password: 'siswa1012' },
-  { username: 'siswa11', password: 'siswa1112' },
-  { username: 'siswa12', password: 'siswa1212' },
-  { username: 'siswa13', password: 'siswa1312' },
-  { username: 'siswa14', password: 'siswa1412' },
-  { username: 'siswa15', password: 'siswa1512' },
-  { username: 'siswa16', password: 'siswa1612' },
-  { username: 'siswa17', password: 'siswa1712' },
-  { username: 'siswa18', password: 'siswa1812' },
-  { username: 'siswa19', password: 'siswa1912' },
-  { username: 'siswa20', password: 'siswa2012' },
-  { username: 'siswa21', password: 'siswa2112' },
-  { username: 'siswa22', password: 'siswa2212' },
-  { username: 'siswa23', password: 'siswa2312' },
-  { username: 'siswa24', password: 'siswa2412' },
-  { username: 'siswa25', password: 'siswa2512' },
-  { username: 'siswa26', password: 'siswa2612' },
-  { username: 'siswa27', password: 'siswa2712' },
-  { username: 'siswa28', password: 'siswa2812' },
-  { username: 'siswa29', password: 'siswa2912' },
-  { username: 'siswa30', password: 'siswa3012' },
-  { username: 'siswa31', password: 'siswa3112' },
-  { username: 'siswa32', password: 'siswa3212' },
-  { username: 'siswa33', password: 'siswa3312' },
-  { username: 'siswa34', password: 'siswa3412' },
-  { username: 'siswa35', password: 'siswa3512' },
-  { username: 'siswa36', password: 'siswa3612' },
-  ];
-
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const usernameInput = document.getElementById('username').value.trim();
-    const passwordInput = document.getElementById('password').value.trim();
-    const errorMsg = document.getElementById('errorMsg');
-
-    if(usernameInput === 'amanda' && passwordInput === '4386') {
-      window.location.href = 'admin-dashboard.html';
-      return;
-    }
-
-    const user = users.find(u => u.username === usernameInput && u.password === passwordInput);
-
-    if(!user) {
-      errorMsg.textContent = 'Username atau password salah!';
-      return;
-    }
-
-    const kelasKode = user.password.slice(-2);
-    if(kelasKode === '10') {
-      window.location.href = 'kelas10.html';
-    } else if(kelasKode === '11') {
-      window.location.href = 'kelas11.html';
-    } else if(kelasKode === '12') {
-      window.location.href = 'kelas12.html';
-    } else {
-      errorMsg.textContent = 'Kode kelas pada password tidak valid!';
-    }
-  });
-</script>
-
+    © 2025 Media Pembelajaran Informatika | Dibuat oleh Amanda Ayudhia
+  </footer>
+  <script src="login.js"></script>
 </body>
 </html>

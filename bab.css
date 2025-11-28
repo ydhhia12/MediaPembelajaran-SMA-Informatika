@@ -1,0 +1,230 @@
+/* Reset & font */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(circle at center, #0a0a2f 0%, #13008f 80%, #3a0fff 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Header glowing BAB */
+header {
+  width: 100%;
+  text-align: center;
+  margin: 40px 0 30px 0;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3a0fff, #7c63ff, #ff33c8);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientMove 6s ease infinite, pulseGlow 2s ease-in-out infinite;
+  text-shadow:
+    0 0 10px #3a0fff,
+    0 0 20px #7c63ff,
+    0 0 30px #ff33c8,
+    0 0 50px #ff66d1;
+}
+
+/* Animasi gradient bergerak */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { text-shadow:
+    0 0 10px #3a0fff,
+    0 0 20px #7c63ff,
+    0 0 30px #ff33c8,
+    0 0 50px #ff66d1;
+  }
+  50% { text-shadow:
+    0 0 20px #3a0fff,
+    0 0 40px #7c63ff,
+    0 0 60px #ff33c8,
+    0 0 80px #ff66d1;
+  }
+}
+
+/* Section materi / konten bab */
+section {
+  background: rgba(0,0,0,0.85);
+  padding: 30px 35px;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 90%;
+  box-shadow:
+    0 0 20px #3a0fff,
+    0 0 40px #7c63ff,
+    0 0 60px #ff33c8;
+  backdrop-filter: blur(8px);
+  margin-bottom: 40px;
+}
+
+/* Overlay gambar di section (opsional) */
+.overlay {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20px;
+  box-shadow:
+    0 0 30px #3a0fff,
+    0 0 60px #7c63ff,
+    0 0 90px #ff33c8;
+  margin-bottom: 30px;
+}
+
+.overlay img {
+  max-width: 50%;
+  max-height: 80%;
+  border-radius: 16px;
+  box-shadow:
+    0 0 20px #3a0fff,
+    0 0 40px #7c63ff,
+    0 0 60px #ff33c8;
+  animation: float 4s ease-in-out infinite;
+  object-fit: cover;
+}
+
+/* Floating animasi gambar */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* List materi / poin */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  background: linear-gradient(135deg, #3a0fff, #7c63ff, #ff33c8);
+  margin-bottom: 18px;
+  padding: 18px 25px;
+  border-radius: 14px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow:
+    0 0 10px #3a0fff,
+    0 0 20px #7c63ff,
+    0 0 30px #ff33c8;
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  transition: all 0.3s ease;
+}
+
+ul li:hover {
+  transform: translateX(10px);
+  box-shadow:
+    0 0 20px #3a0fff,
+    0 0 40px #7c63ff,
+    0 0 60px #ff33c8,
+    0 0 80px #ff66d1;
+}
+
+/* Tombol kembali / navigasi */
+.btn-kembali {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #3a0fff, #7c63ff, #ff33c8);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow:
+    0 0 20px #3a0fff,
+    0 0 40px #7c63ff,
+    0 0 60px #ff33c8;
+  transition: all 0.3s ease;
+}
+
+.btn-kembali:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 30px #3a0fff,
+    0 0 50px #7c63ff,
+    0 0 70px #ff33c8,
+    0 0 90px #ff66d1;
+  background: linear-gradient(135deg, #ff33c8, #7c63ff, #3a0fff);
+}
+
+/* Footer glowing */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-weight: 600;
+  color: #fff;
+  text-shadow:
+    0 0 15px #3a0fff,
+    0 0 30px #7c63ff,
+    0 0 50px #ff33c8;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/* Responsive header bab */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+ 
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+  }
+  th, td {
+    border: 2px solid #28a745;
+    padding: 10px;
+    vertical-align: middle;
+  }
+  th {
+    background: #28a745;
+    color: white;
+    text-align: center;
+  }
+  svg {
+    display: block;
+    margin: auto;
+  }
+  img {
+      max-width: 80%;   /* kecilin jadi 80% dari lebar container */
+      height: auto;     /* biar proporsional */
+      display: block;   /* biar rapi di tengah */
+      margin: 10px auto;
+      border: 2px solid #444; /* opsional, kasih border */
+      border-radius: 8px;     /* opsional, kasih sudut melengkung */
+    }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Siswa</title>
+  <link rel="stylesheet" href="register.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Register Siswa</h2>
+    <form onsubmit="register(event)">
+      <input type="text" id="namaDepan" placeholder="Nama Depan" required>
+      <input type="text" id="namaLengkap" placeholder="Nama Lengkap" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <select id="kelas" required>
+        <option value="">-- Pilih Kelas --</option>
+        <option value="10">Kelas 10</option>
+        <option value="11">Kelas 11</option>
+        <option value="12">Kelas 12</option>
+      </select>
+
+      <button type="submit">Daftar</button>
+    </form>
+
+    <p id="register-message"></p>
+    <p style="margin-top:15px;">Sudah punya akun? <a href="login.html">Login</a></p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Media Pembelajaran Informatika | Dibuat oleh Amanda Ayudhia
+  </footer>
+
+  <script src="register.js"></script>
+</body>
+</html>

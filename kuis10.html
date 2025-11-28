@@ -1,229 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kuis Kelas 10</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      max-width: 800px;
-      margin: 30px auto;
-      background: #f5f6fa;
-      padding: 20px 30px;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    h1 {
-      text-align: center;
-      color: #2d3436;
-      margin-bottom: 30px;
-    }
-    .soal {
-      margin-bottom: 25px;
-      background: white;
-      padding: 18px 22px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-    }
-    .soal h3 {
-      margin-bottom: 15px;
-      font-weight: 600;
-      color: #130f40;
-    }
-    label {
-      display: block;
-      margin: 8px 0;
-      cursor: pointer;
-      user-select: none;
-      color: #30336b;
-    }
-    input[type="radio"] {
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    textarea {
-      width: 100%;
-      min-height: 70px;
-      border-radius: 8px;
-      padding: 8px 12px;
-      border: 1.5px solid #ccc;
-      font-size: 1rem;
-      resize: vertical;
-    }
-    button.submit-btn {
-      background: #6c5ce7;
-      color: white;
-      padding: 15px;
-      width: 100%;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 30px;
-      box-shadow: 0 5px 15px rgba(108,92,231,0.5);
-      transition: background 0.3s ease;
-    }
-    button.submit-btn:hover {
-      background: #4834d4;
-    }
-    #hasilNilai {
-      margin-top: 25px;
-      background: #00b894;
-      color: white;
-      padding: 15px 20px;
-      font-weight: 700;
-      border-radius: 14px;
-      text-align: center;
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Kelas 10</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kuis.css">
 </head>
 <body>
+<header>
+  <h1>✨ Kuis Kelas 10 ✨</h1>
+</header>
 
-  <h1>Kuis Kelas 10</h1>
-
-  <form id="kuisForm">
-
-    <div id="soalContainer">
-      <!-- Soal akan dimuat di sini -->
-    </div>
-
-    <button type="submit" class="submit-btn">Kirim Jawaban</button>
+<!-- Form Nama -->
+<section id="formNamaSection">
+  <form id="formNama">
+    <label for="namaSiswa">Masukkan Nama:</label>
+    <input type="text" id="namaSiswa" placeholder="Nama lengkap kamu..." required>
+    <button type="submit" class="submit-btn">Mulai Kuis</button>
   </form>
+</section>
 
-  <div id="hasilNilai"></div>
+<!-- Form Kuis -->
+<form id="formKuis" style="display:none;">
+  <div id="daftarSoal"></div>
+  <button type="button" id="submitKuis" class="submit-btn" style="display:none;">Kirim Jawaban</button>
+</form>
 
+<!-- Hasil Nilai -->
+<div id="hasilNilai"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-  // Ambil soal kelas 10 dari localStorage
-  const soalData = JSON.parse(localStorage.getItem('soal')) || [];
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-
-  // Filter soal kelas 10
-  const soalKelas10 = soalData.filter(s => s.kelas === '10');
-
-  // Simpan jawaban user sementara
-  const jawabanPG = {};
-  const jawabanEsai = {};
-
-  const soalContainer = document.getElementById('soalContainer');
-
-  function renderSoal() {
-    soalContainer.innerHTML = '';
-    soalKelas10.forEach((soal, idx) => {
-      if(soal.jenis === 'pg') {
-        // Soal PG dengan opsi ABCDE
-        let opsiHtml = '';
-        ['A','B','C','D','E'].forEach(letter => {
-          opsiHtml += `
-            <label>
-              <input type="radio" name="soal${idx}" value="${letter}" required />
-              (${letter}) ${soal.opsi[letter]}
-            </label>
-          `;
-        });
-        soalContainer.innerHTML += `
-          <div class="soal">
-            <h3>Soal ${idx+1} (PG):</h3>
-            <p>${soal.soal}</p>
-            ${opsiHtml}
-          </div>
-        `;
-      } else {
-        // Soal Esai
-        soalContainer.innerHTML += `
-          <div class="soal">
-            <h3>Soal ${idx+1} (Esai):</h3>
-            <p>${soal.soal}</p>
-            <textarea name="esai${idx}" placeholder="Jawaban Anda..." required></textarea>
-          </div>
-        `;
-      }
-    });
-  }
-
-  renderSoal();
-
-  const kuisForm = document.getElementById('kuisForm');
-  const hasilNilai = document.getElementById('hasilNilai');
-
-  kuisForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Minta username siswa (simple)
-    let username = prompt('Masukkan username Anda:');
-    if(!username) {
-      alert('Username wajib diisi.');
-      return;
-    }
-    // Cari nama lengkap dan kelas user dari data users
-    const user = users.find(u => u.username === username);
-    if(!user) {
-      alert('Username tidak ditemukan. Pastikan sudah didaftarkan admin.');
-      return;
-    }
-
-    let totalPG = 0;
-    let benarPG = 0;
-    let hasilNilaiPG = 0;
-
-    // Simpan hasil jawaban
-    const nilaiData = JSON.parse(localStorage.getItem('nilai')) || [];
-
-    // Cek semua soal
-    for(let i=0; i<soalKelas10.length; i++){
-      let soal = soalKelas10[i];
-      if(soal.jenis === 'pg'){
-        totalPG++;
-        const jawabanUser = kuisForm[`soal${i}`].value;
-        if(jawabanUser === soal.jawabanBenar) benarPG++;
-
-        // Simpan nilai PG langsung
-        nilaiData.push({
-          username: user.username,
-          nama: user.nama,
-          kelas: user.kelas,
-          bab: soal.bab,
-          semester: soal.semester,
-          jenisSoal: 'pg',
-          nilai: (jawabanUser === soal.jawabanBenar) ? 100 : 0,
-          status: 'pg',
-          nilaiEsai: null
-        });
-      } else {
-        // Esai, simpan jawaban user tanpa nilai dulu
-        const jawabanUser = kuisForm[`esai${i}`].value.trim();
-
-        nilaiData.push({
-          username: user.username,
-          nama: user.nama,
-          kelas: user.kelas,
-          bab: soal.bab,
-          semester: soal.semester,
-          jenisSoal: 'esai',
-          nilai: null,
-          status: 'esai',
-          nilaiEsai: null,
-          jawabanEsai: jawabanUser
-        });
-      }
-    }
-
-    // Hitung skor PG total (% benar)
-    if(totalPG > 0) {
-      hasilNilaiPG = Math.round((benarPG / totalPG) * 100);
-      hasilNilai.textContent = `Nilai PG Anda: ${hasilNilaiPG} %`;
-      hasilNilai.style.display = 'block';
-    } else {
-      hasilNilai.textContent = 'Tidak ada soal pilihan ganda di kuis ini.';
-      hasilNilai.style.display = 'block';
-    }
-
-    // Simpan semua nilai ke localStorage
-    localStorage.setItem('nilai', JSON.stringify(nilaiData));
-
-    kuisForm.reset();
-  });
+const firebaseConfig = {
+  apiKey: "AIzaSyCDYgssULkWU3f2H-iIRxkmEmlu6LwqBvk",
+  authDomain: "media-pembelajaran-30fdf.firebaseapp.com",
+  databaseURL: "https://media-pembelajaran-30fdf-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "media-pembelajaran-30fdf",
+  storageBucket: "media-pembelajaran-30fdf.firebasestorage.app",
+  messagingSenderId: "77106453950",
+  appId: "1:77106453950:web:dd45c38bacdcc9f4326def",
+  measurementId: "G-RJK9KYJ0KV"
+};
+firebase.initializeApp(firebaseConfig);
 </script>
-
+<script src="kuis10.js"></script>
 </body>
 </html>

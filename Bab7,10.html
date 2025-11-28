@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 7 - Algoritma dan Pemrograman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="bab.css">
+</head>
+<Body>
+<header>
+    <h1>Bab 7: Algoritma dan Pemrograman</h1>
+  </header>
+  <button class="btn-kembali" onclick="window.location.href='materi10-2.html'">
+  ← Kembali ke Daftar Materi
+</button>
+<main>
+    <section>
+      <h2>A. Algoritma</h2>
+      <p>Algoritma adalah kumpulan instruksi terstruktur dan terbatas yang dapat diimplementasikan dalam program komputer untuk menyelesaikan masalah. Algoritma lahir dari proses berpikir komputasional yang melibatkan analisis masalah melalui abstraksi, dekomposisi, dan pengenalan pola.
+
+Algoritma perlu ditulis dalam bentuk yang jelas, terdefinisi baik, dan memiliki langkah terbatas agar mudah dipahami manusia serta dapat diubah menjadi program. Menulis algoritma berbeda dengan menulis program: algoritma ditujukan untuk manusia, sedangkan program untuk mesin. </p>
+    <p>Ada dua cara utama merepresentasikan algoritma, yaitu diagram alir dan pseudocode. Untuk itu, penting mempelajari cara membaca algoritma (tracing) dan menuliskannya dengan baik, karena algoritma merupakan abstraksi dari program yang mempermudah implementasi.</p>
+<ul>
+  <li>1. Diagram Alir</li>
+ <p> Diagram alir dibuat dalam bentuk aliran simbol yang dapat ditelusuri dari
+suatu titik permulaan hingga titik akhir dari program. Diagram alir dibuat
+menggunakan simbol standar ANSI/ISO yang beberapa simbol dasarnya.</p>
+</ul>
+<table>
+  <tr>
+    <th>Simbol</th>
+    <th>Nama</th>
+    <th>Deskripsi</th>
+  </tr>
+  <tr>
+    <td>
+      <!-- Garis alir -->
+      <svg width="80" height="30">
+        <line x1="10" y1="15" x2="70" y2="15" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L9,3 z" fill="black"/>
+          </marker>
+        </defs>
+      </svg>
+    </td>
+    <td>Garis alir (flowline)</td>
+    <td>Arah yang menunjukkan aliran program dari awal hingga akhir.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Terminator -->
+      <svg width="80" height="40">
+        <rect x="5" y="5" rx="20" ry="20" width="70" height="30" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Terminator</td>
+    <td>Titik awal atau titik akhir suatu program.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Proses -->
+      <svg width="80" height="40">
+        <rect x="10" y="5" width="60" height="30" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Proses</td>
+    <td>Suatu kegiatan komputasi yang dilakukan oleh program, misalnya operasi aritmatika.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Keputusan -->
+      <svg width="80" height="60">
+        <polygon points="40,5 75,30 40,55 5,30" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Keputusan</td>
+    <td>Merupakan titik percabangan yang salah satu cabangnya dapat dilalui oleh program berdasarkan suatu kondisi.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Input/Output -->
+      <svg width="80" height="40">
+        <polygon points="15,5 75,5 65,35 5,35" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Masukan (Input)/Keluaran (Output)</td>
+    <td>Melambangkan titik saat program menerima data atau menghasilkan informasi.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Subprogram -->
+      <svg width="80" height="40">
+        <rect x="15" y="5" width="50" height="30" stroke="black" fill="white" stroke-width="2"/>
+        <line x1="25" y1="5" x2="25" y2="35" stroke="black" stroke-width="2"/>
+        <line x1="55" y1="5" x2="55" y2="35" stroke="black" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Subprogram</td>
+    <td>Melambangkan suatu kegiatan atau proses lain yang sudah didefinisikan sebelumnya.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Penghubung dalam halaman -->
+      <svg width="50" height="50">
+        <circle cx="25" cy="25" r="15" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Penghubung dalam halaman</td>
+    <td>Digunakan untuk menghubungkan suatu titik pada diagram alir ke titik lain pada halaman yang sama.</td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Penghubung antarhalaman -->
+      <svg width="60" height="60">
+        <polygon points="30,5 55,25 55,55 5,55 5,25" stroke="black" fill="white" stroke-width="2"/>
+      </svg>
+    </td>
+    <td>Penghubung antarhalaman</td>
+    <td>Digunakan untuk menghubungkan titik pada diagram alir ke titik lain di halaman berbeda.</td>
+  </tr>
+</table>
+<p>Untuk memahami bagaimana diagram alir digunakan untuk menggambarkan
+suatu algoritma, pada bagian berikut, diberikan lima buah contoh diagram
+alir dari beberapa proses berpikir yang telah kalian kenal. </p>
+<p>a. Diagram Alir 1: Menghitung Luas Persegi</p>
+<div class="center-text">
+  <img src="5e05578c-9c80-4d4f-97fa-06d40bc8f192.jpeg">
+<p>b. Diagram Alir 2: Menghitung Luas Permukaan Kubus</p>
+<img src="7ec61879-86ae-4ee4-98b2-562d70206ad5.jpeg">
+<p>c. Diagram Alir 3: Membagi Bilangan</p>
+ <img src="e9ca75ee-b4e1-4e36-94e3-237b12a44505.jpeg">
+<p>d. Diagram Alir 4: Menghitung Mundur dari N hingga 1</p>
+<img src="7cd8a7bd-42f0-4420-b37b-50cb95a744b3.jpeg">
+<p>e. Diagram Alir 5: Mencari Bilangan Terbesar dari Suatu Himpunan
+Bilangan</p>
+<p>Tentunya, simbol-simbol dasar pada diagram alir dapat dipadukan untuk
+menghasilkan sebuah proses yang lebih kompleks. Diagram alir berikut
+menggambarkan proses mencari bilangan terbesar dari suatu himpunan
+bilangan yang diberikan. Diagram alir berikut akan membaca sebanyak N
+buah bilangan dan akan menghasilkan bilangan yang paling besar di antara
+bilangan tersebut. </p>
+<img src="a60bde63-9872-4cff-ab0b-4e474eea0e6a.jpeg">
+</div>
+  </section>
+  <section>
+    <p>f. Menelusuri Diagram Alir</p>
+    <p>Penelusuran adalah proses mengikuti jalannya sebuah algoritma langkah demi langkah menggunakan tabel sederhana. Tabel ini biasanya terbagi menjadi tiga bagian utama: masukan, nilai variabel, dan keluaran.</p>
+    <li>Masukan berisi data awal yang akan diproses oleh algoritma.</li>
+    <li>Nilai variabel menunjukkan perubahan nilai variabel setiap kali ada proses atau perhitungan.</li>
+    <li>Keluaran berisi hasil yang dicetak oleh algoritma.</li>
+    <p>Proses tracing dilakukan mulai dari simbol START pada diagram alir, lalu mengikuti setiap langkah:</p>
+   <ol>
+    <li><b>Membaca data (READ)</b> → data dari masukan dipindahkan ke variabel yang sesuai.</li>
+    <li><b>Proses atau assignment</b> → jika ada perintah seperti <i>Terbesar = 0</i> atau <i>N = N - 1</i>, maka nilai variabel diperbarui sesuai hasil perhitungan.</li>
+    <li><b>Kondisi/percabangan</b> → jika ada simbol keputusan (misalnya <i>N &gt; 0?</i>), jalur penelusuran mengikuti hasil kondisi (ya/tidak).</li>
+    <li><b>Perulangan</b> → langkah akan diulang sampai syarat berhenti tercapai.</li>
+    <li><b>Keluaran (PRINT)</b> → nilai variabel tertentu ditulis pada bagian keluaran tabel.</li>
+    <li><b>END</b> → penelusuran berakhir, hasil akhir bisa langsung dilihat di bagian keluaran.</li>
+  </ol>
+  <table>
+    <tr>
+      <th>(a) Sebelum kalian menelusuri</th>
+      <th>(b) Saat menemukan simbol masukan dengan perintah READ N.</th>
+      <th>(c) Saat menemukan simbol proses dengan perintah terbesar = 0.</th>
+    </tr>
+    <tr>
+      <td>
+        Masukan: <br>4<br>1 3 2 4 <br><br>
+        Nilai variabel:<br>N: <br>Bilangan: <br>Terbesar: <br><br>
+        Keluaran:
+      </td>
+      <td>
+        Masukan: <br>4<br>1 3 2 4 <br><br>
+        Nilai variabel:<br>N: 4<br>Bilangan: <br>Terbesar: <br><br>
+        Keluaran:
+      </td>
+      <td>
+        Masukan: <br>4<br>1 3 2 4 <br><br>
+        Nilai variabel:<br>N: 4<br>Bilangan: <br>Terbesar: 0<br><br>
+        Keluaran:
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>(d) Saat menemukan simbol proses dengan ekspresi N = N - 1.</th>
+      <th>(e) Saat N bernilai 0, Lembar Kerja kalian akan menjadi seperti ini.</th>
+      <th>(f) Saat menemukan simbol proses dengan perintah keluaran terbesar.</th>
+    </tr>
+    <tr>
+      <td>
+        Masukan: <br>4<br>1 3 2 4 <br><br>
+        Nilai variabel:<br>N: 4 → 3<br>Bilangan: <br>Terbesar: <br><br>
+        Keluaran:
+      </td>
+      <td>
+        Masukan: <br>4<br><s>1 3 2 4</s> <br><br>
+        Nilai variabel:<br>N: 4 → 3 → 2 → 1 → 0<br>Bilangan: 1 3 2 4 → <s>1324</s> 0<br>Terbesar: 4<br><br>
+        Keluaran:
+      </td>
+      <td>
+        Masukan: <br>4<br>1 3 2 4 <br><br>
+        Nilai variabel:<br>N: 0<br>Bilangan: <s>1324</s> 0<br>Terbesar: 4<br><br>
+        Keluaran: 4
+      </td>
+    </tr>
+  </table>
+  <ul>
+    <li>2. Pseudocode</li>
+  </ul>
+  <p>Pseudocode itu semacam cara menulis algoritma dalam bentuk bahasa sehari-hari yang mirip kode program, tapi tidak terikat aturan bahasa pemrograman tertentu. Jadi dia lebih fleksibel dan gampang dipahami.
+
+Kalau diagram alir kan pakai simbol-simbol, kadang susah untuk menggambarkan detail langkahnya. Nah, pseudocode ini dipakai untuk menuliskan langkah algoritma baris per baris supaya jelas.</p>
+<p>Ada beberapa aturan dasar:</p>
+<li>Setiap baris berisi satu perintah/statement.</li>
+<li>Gunakan indentasi (spasi/tab ke dalam) untuk menandai bagian yang ada di dalam percabangan (IF, ELSE) atau perulangan (FOR, WHILE).</li>
+<li>Tidak ada format baku, yang penting mudah dimengerti dan runtut.</li>
+<p>a. Pseudocode 1: Menghitung Luas Persegi</p>
+<table>
+    <tr>
+      <th class="desc">Deskripsi Tingkat Tinggi</th>
+      <th>Pseudocode</th>
+    </tr>
+    <tr>
+      <td>
+        1. Baca nilai sisi persegi.<br>
+        2. Hitung luas dengan mengkuadratkan nilai sisinya.<br>
+        3. Cetak luas.
+      </td>
+      <td>
+        Algoritma Menghitung Luas Persegi<br>
+        Input: Nilai Panjang Sisi Persegi.<br>
+        Output: Luas Persegi tercetak.<br><br>
+        input sisi<br>
+        luas ← sisi * sisi<br>
+        print luas
+      </td>
+    </tr>
+  </table>
+
+<p>b. Pseudocode 2: Menghitung Luas Permukaan Kubus</p>
+ <table>
+    <tr>
+      <th class="desc">Deskripsi Tingkat Tinggi</th>
+      <th>Pseudocode</th>
+    </tr>
+    <tr>
+      <td>
+        1. Baca nilai sisi kubus.<br>
+        2. Hitung luas (persegi) dari sisi kubus. Kalikan dengan 6 untuk mendapatkan luas permukaan.<br>
+        3. Cetak luas permukaan.
+      </td>
+      <td>
+        Algoritma Menghitung Luas Permukaan Kubus<br>
+        Input: Nilai Panjang Sisi Kubus.<br>
+        Output: Luas Permukaan Kubus tercetak.<br><br>
+        input sisi<br>
+        luas_permukaan ← (sisi * sisi) * 6<br>
+        print luas_permukaan
+      </td>
+    </tr>
+  </table>
+<p>c. Pseudocode 3: Membagi Bilangan</p>
+ <table>
+    <tr>
+      <th class="desc">Deskripsi Tingkat Tinggi</th>
+      <th>Pseudocode</th>
+    </tr>
+    <tr>
+      <td>
+        1. Baca nilai pembilang dan penyebut.<br>
+        2. Jika penyebut bernilai 0, cetak tulisan “Penyebut tidak boleh nol”.<br>
+        3. Jika penyebut tidak bernilai nol, lakukan pembagian pembilang dengan penyebut dan simpan hasilnya.<br>
+        4. Cetak hasil pembagian.
+      </td>
+      <td>
+        Algoritma Membagi Bilangan<br>
+        Input: Pembilang dan Penyebut.<br>
+        Output: Hasil Pembagian tercetak.<br><br>
+        input pembilang, penyebut<br>
+        if penyebut = 0 then<br>
+        &nbsp;&nbsp;print "Penyebut tidak boleh nol"<br>
+        else<br>
+        &nbsp;&nbsp;hasil ← pembilang / penyebut<br>
+        &nbsp;&nbsp;print hasil
+      </td>
+    </tr>
+  </table>
+</section>
+<section>
+  <p>d. Pseudocode 4: Menghitung Mundur dari N hingga 1</p>
+  <table>
+    <tr>
+      <th class="desc">Deskripsi Tingkat Tinggi</th>
+      <th>Pseudocode</th>
+    </tr>
+    <tr>
+      <td>
+        1. Baca nilai N.<br>
+        2. Selama N > 0, ulangi.<br>
+        3. Cetak tulisan N.<br>
+        4. Kurangi nilai N dengan 1.
+      </td>
+      <td>
+        Algoritma Menghitung Mundur dari N hingga 1<br>
+        Input: Nilai N.<br>
+        Output: Angka hasil hitung mundur dari N sampai 1 tercetak.<br><br>
+        input N<br>
+        while N &gt; 0<br>
+        &nbsp;&nbsp;print N<br>
+        &nbsp;&nbsp;N ← N - 1
+      </td>
+    </tr>
+  </table>
+  <p>e. Pseudocode 5: Mencari Bilangan Terbesar dari Suatu Himpunan Bilangan</p>
+<table>
+    <tr>
+      <th class="desc">Deskripsi Tingkat Tinggi</th>
+      <th>Pseudocode</th>
+    </tr>
+    <tr>
+      <td>
+        1. Jika himpunan bilangan kosong, maka tidak ada bilangan terbesar.<br>
+        2. Jika himpunan bilangan tidak kosong, asumsikan bilangan pertama sebagai bilangan terbesar saat ini.<br>
+        3. Untuk setiap bilangan anggota himpunan: bandingkan dengan bilangan terbesar saat ini. Jika lebih besar, jadikan bilangan itu sebagai bilangan terbesar saat ini.<br>
+        4. Setelah semua dibandingkan, bilangan terbesar saat ini adalah hasilnya.
+      </td>
+      <td>
+        Algoritma Mencari Bilangan Terbesar<br>
+        Input: Himpunan bilangan L.<br>
+        Output: Bilangan terbesar pada himpunan bilangan L.<br><br>
+        if size of (L) = 0 then return null<br>
+        largest ← elemen pertama L<br>
+        for each item in L do<br>
+        &nbsp;&nbsp;if item &gt; largest then<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;largest ← item<br>
+        return largest
+      </td>
+    </tr>
+  </table>
+  <h2>B. Bahasa Pemrograman Prosedural</h2>
+  <p>Belajar bahasa pemrograman itu sama halnya dengan belajar bahasa manusia. Kita tidak langsung memulai dari teori, melainkan dari membaca contoh-contoh sederhana yang bisa dipakai sehari-hari. Dari situ, kita mulai mengenal kosakata penting dan pola dasar, lalu secara bertahap berlanjut ke konsep yang lebih rumit dan aturan tata bahasa yang formal. Bedanya, kalau bahasa manusia hanya dipahami sebagai teks, bahasa pemrograman selain dipahami oleh manusia juga bisa dimengerti oleh komputer sehingga bisa dijalankan.</p>
+  <p>Terdapat banyak bahasa pemrograman, dan setiap
+bahasa memiliki paradigma, keunggulan, tantangan
+masing-masing. Pada unit ini, kalian diperkenalkan
+pada bahasa pemrograman C yang merupakan
+salah satu bahasa pemrograman prosedural. Saat
+mempelajari bahasa C pada unit ini di kelas X, kalian
+akan mempelajari empat elemen generik, yaitu
+variabel, ekspresi, struktur kontrol keputusan, dan
+struktur kontrol perulangan. Empat
+elemen ini berlaku di semua bahasa pemrograman
+prosedural lainnya. Teks kode program dalam
+bahasa-bahasa pemrograman lain banyak yang
+mirip dengan teks bahasa C.
+Oleh karena itu, kalian perlu menyadari bahwa
+unit ini tidak dibuat hanya agar kalian menguasai
+pemrograman dengan bahasa C, tetapi bagaimana
+kalian dapat menggunakan keempat elemen dasar
+tersebut dalam membuat suatu program.</p>
+<div class="center-text">
+  <img src="mengnal bahasan c.jpeg">
+</div>
+<h2>C. Bahasa Pemrograman C</h2>
+<p>Bahasa C dikembangkan oleh Dennis M. Ritchie dan Brian W. Kernighan pada awal 1970-an, berhubungan erat dengan sistem operasi UNIX yang sebagian besar ditulis dalam bahasa C. Dari sejarahnya lahirlah beberapa standar bahasa C, seperti K&R, ANSI-C (1989), AT&T (superset C++), dan GNU Coding Standards, serta berbagai versi untuk PC (misalnya Lattice C, Microsoft C, Turbo C/Borland C++).
+
+Bahasa C banyak digunakan untuk membuat sistem operasi, program sistem, pemrograman tingkat rendah (dekat ke perangkat keras), kontrol peralatan, toolkit pemrograman, dan aplikasi.
+
+Kelebihan C: kode singkat, efisien, dan cukup mudah dibaca.
+Kekurangan C: lebih sulit dibaca dibandingkan bahasa tingkat tinggi lain, meski lebih mudah daripada bahasa mesin.</p>
+<ul>
+  <li>1. Membuat Program Pertama dengan Bahasa C</li>
+  <p>Sekarang, saatnya kalian memulai perjalanan kalian dalam membuat program
+dengan bahasa C. Namun, sebelum kalian mulai membuat program, ada
+persiapan yang harus kalian lakukan. Pertama, kalian membutuhkan sebuah
+tempat untuk bekerja, yang disebut lingkungan pengembangan. Kedua,
+kalian harus memahami proses membuat program mulai dari mengetikkan
+kode program hingga menghasilkan program yang dapat dieksekusi atau
+dijalankan oleh komputer.</p>
+</ul>
+<li>a. Persiapan Lingkungan Pengembangan Program Menggunakan
+Bahasa C</li>
+<div class="center-text">
+  <img src="Alur proses membuat program dengan Bahasa C.jpg">
+</div>
+</section>
+<section>
+<p>Ini langkah-langkah untuk membuat program di C! (rumit sekali). Namun
+sekarang, ada IDE (Integrated Development Environment), semuanya jadi
+mudah! Tulis program, satu kali klik, langsung bisa tampil….
+</p>
+<div class="center-text">
+  <img src="7d1fdc22-0d06-4595-97b1-0f5a08d208fd.jpeg">
+</div>
+<p>Untuk membuat program C dibutuhkan beberapa perangkat:</p>
+<li>Editor teks → tempat menulis kode.</li>
+<li>Compiler → menerjemahkan kode C ke bahasa mesin/assembly.</li>
+<li>Assembler → mengubah bahasa mesin menjadi kode biner.</li>
+<li>Linker → menyatukan hasil proses sebelumnya menjadi berkas executable.</li>
+<p>Awalnya perangkat itu terpisah, lalu dibuat IDE (Integrated Development Environment) yang mencakup semuanya.</p>
+<ul>
+  <li>Contoh IDE C di komputer: Eclipse, Atom, Code::Blocks, Geany, Visual Studio.</li>
+  <li>Contoh IDE online (cloud): Ideone, tutorialspoint.com, onlinegdb.com.</li>
+  <li>IDE di ponsel: CppDroid, Mobile C, Coding C.</li>
+
+<p>Fungsi tambahan IDE: auto-complete, kolaborasi, integrasi repositori online.
+Setiap perusahaan biasanya punya standar IDE masing-masing. Menguasai IDE membuat pemrogram lebih produktif, efisien, dan mudah bekerja dalam tim.</p>
+<li>2. Struktur Program Bahasa C</li>
+</ul>
+<p>Bahasa C merupakan bahasa yang terstruktur. Beberapa struktur dasar pada
+program bahasa C telah terlihat pada program yang kalian tulis sebelumnya.
+Untuk memudahkan penjelasan, kode program berikut akan diberi nomor
+baris di bagian kiri.
+Penting: Jika kalian ingin mencoba menjalankan contoh program dengan
+nomor baris seperti di bawah ini, kalian tidak perlu mengetikkan nomor baris
+tersebut.</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Baris Kode</th>
+  </tr>
+  <tr>
+    <td>#include&lt;stdio.h&gt;</td>
+  </tr>
+  <tr>
+    <td>int main(){</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;printf("Halo Dunia!\n");</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;return 0;</td>
+  </tr>
+  <tr>
+    <td>}</td>
+  </tr>
+</table>
+<p>Program Halo Dunia! dalam bahasa C diawali dengan baris #include <stdio.h>. Baris ini digunakan untuk memasukkan sebuah header file bernama stdio.h, yang berisi kumpulan fungsi standar untuk melakukan operasi input dan output. Dengan adanya stdio.h, program dapat menggunakan fungsi seperti printf untuk menampilkan teks ke layar.
+
+Selanjutnya, pada baris kedua hingga kelima terdapat blok program dari fungsi main. Fungsi main adalah fungsi utama yang pertama kali dijalankan ketika program dieksekusi. Semua isi perintah yang ingin dijalankan dituliskan di dalam tanda kurung kurawal { ... }.
+
+Di dalam fungsi main, pada baris ketiga terdapat perintah printf("Halo Dunia!\n");. Perintah ini berfungsi untuk menampilkan tulisan Halo Dunia! ke layar. Tanda \n pada teks berfungsi untuk membuat baris baru, sama seperti ketika menekan tombol Enter pada keyboard.
+
+<p>Kemudian, pada baris keempat terdapat pernyataan return 0;. Pernyataan ini digunakan untuk memberi tahu sistem operasi bahwa program telah selesai dijalankan dengan benar. Jika nilai yang dikembalikan adalah 0, berarti program berjalan normal. Sedangkan jika nilai yang dikembalikan bukan 0, maka itu menandakan adanya kesalahan saat program berhenti.</p>
+Kalian dapat memodifikasi kode program tersebut dan menjalankannya
+kembali dengan melakukan beberapa perubahan, misalnya:</p>
+<ol>
+  <li><b> Ubah kalimat Halo Dunia menjadi Hello World!</b></li>
+  <li><b>Cetak dua baris kalimat di layar, yaitu “Halo Dunia!” dan “Saya siap
+belajar pemrograman!”</b></li>
+</ol>
+</section>
+<section>
+  <h3>a. Komponen Program dalam Bahasa C</h3>
+  <p>Sebelum membuat program yang lebih kompleks, yang melibatkan ekspresi,
+struktur kontrol keputusan, atau struktur kontrol perulangan, kalian perlu
+memahami makna dari berbagai komponen penyusun bahasa C, di antaranya
+meliputi kata kunci, identifier, variabel, tipe data, dan konstanta.</p>
+<ol>
+  <li><b>Kata Kunci (Keyword)</b></li>
+
+<p>Kata kunci merupakan kata yang telah memiliki makna khusus yang tidak dapat
+diubah oleh pemrograman. Dengan kata lain, kalian tidak dapat menggunakan
+sebagai suatu identifier. Terdapat 32 kata kunci standar pada bahasa C, yaitu: </p>
+
+ <p>auto, double, int, struct, break, else, long, switch, case,
+enum, register, typedef, char, extern, return, union, continue,
+for, signed, void, do, if, static, while, default, goto, sizeof,
+volatile, const, float, short, dan unsigned.
+
+  <li><b>Identifier</b></li>
+
+<p>Identifier adalah nama unik yang dapat kalian ingat yang diberikan ke
+dalam entitas program C, seperti variabel dan fungsi. Identifier terdiri atas
+serangkaian karakter dengan aturan berikut.</p>
+
+<p>a. Tidak boleh sama dengan kata kunci (keyword) dalam bahasa C.</p>
+<p>b. Disusun dari kombinasi huruf (besar dan kecil), angka, dan underscore
+”_”</p>
+<p>c. Harus dimulai dengan huruf atau underscore. </p>
+<p>d. Bersifat case-sensitive, atau sensitif terhadap huruf besar atau kecil
+(kapitalisasi karakter). Dengan kata lain, sisi dan Sisi akan dianggap
+sebagai dua identifier yang berbeda. </p>
+
+  <li><b> Tipe Data</b></li>
+    <p>Komputer dapat mengolah data yang beragam. Pada dasarnya, data yang diolah
+oleh komputer, baik berupa numerik ataupun karakter, akan disimpan dalam
+bentuk biner. Oleh karena itu, nilai yang kalian masukkan dalam komputer
+pastilah akan disimpan dalam bentuk biner. Program perlu mengetahui
+bagaimana bilangan biner dibaca sehingga diperlukan suatu mekanisme
+untuk memberi tahu program tentang data yang kita simpan pada variabel
+tersebut. Hal ini diakomodir melalui tipe data. Suatu tipe data akan memiliki
+nama tipe, jenis data yang disimpan, dan rentang yang berbeda.</p>
+
+<table>
+    <thead>
+      <tr>
+        <th>Nama Tipe</th>
+        <th>Jenis Data</th>
+        <th>Ukuran Memori</th>
+        <th>Rentang</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>int</td>
+        <td>Bilangan bulat</td>
+        <td>4 byte</td>
+        <td>-2.1×10⁹ hingga 2.1×10⁹</td>
+      </tr>
+      <tr>
+        <td>short</td>
+        <td>Bilangan bulat</td>
+        <td>2 byte</td>
+        <td>-32768 hingga 32767</td>
+      </tr>
+      <tr>
+        <td>long</td>
+        <td>Bilangan bulat</td>
+        <td>8 byte</td>
+        <td>-9.2×10⁸ hingga 9.2×10⁸</td>
+      </tr>
+      <tr>
+        <td>float</td>
+        <td>Bilangan riil</td>
+        <td>4 byte</td>
+        <td>1.2×10³⁸ hingga 3.4×10³⁸</td>
+      </tr>
+      <tr>
+        <td>double</td>
+        <td>Bilangan riil</td>
+        <td>8 byte</td>
+        <td>2.3×10³⁰⁸ hingga 1.7×10³⁰⁸</td>
+      </tr>
+      <tr>
+        <td>char</td>
+        <td>Karakter*</td>
+        <td>1 byte</td>
+        <td>-127 hingga 128</td>
+      </tr>
+    </tbody>
+  </table>
+   <caption>*Seperti yang termuat pada kode ASCII: ascii-code.com</caption>
+  <p> Perhatikan bahwa rentang yang diberikan memungkinkan nilai negatif
+hingga positif, atau disebut tipe data signed. Apabila kalian menambahkan kata
+kunci unsigned di depan tipe data, tipe data tersebut hanya akan menampung
+bilangan positif dengan rentang dari 0 hingga 2jumlah bit - 1.</p>
+<li><b>Variabel</b></li>
+<p>Pada matematika, kalian mengenal variabel sebagai sebuah wadah untuk
+menyimpan suatu nilai. Variabel pada program memiliki fungsi yang sama.
+Nilai yang diberikan pada sebuah variabel akan disimpan di memori komputer.
+Komputer memberikan alamat pada lokasi memori tersebut yang sulit diingat
+oleh manusia. Oleh karena itu, variabel diberikan nama simbolik yang mudah
+untuk diingat oleh kalian dengan menggunakan identifier.
+</p> 
+<p>Dalam bahasa C, variabel perlu dideklarasikan dengan memberikan tipe
+data dan identifiers sebelum dapat digunakan. Deklarasi dapat dilakukan
+dengan menggunakan pernyataan berikut:</p>
+<div class="center-text">
+  <img src="dac23e28-532a-421e-818c-7ac961096171.jpeg">
+  <p>Pada saat deklarasi, variabel juga dapat diberikan nilai awal, misalnya dalam bentuk:</p>
+  <img src="a5a463b5-30d8-4015-bc41-00a19af8d453.jpeg">
+  <p>Variabel dengan tipe yang sama dapat dideklarasikan secara ringkas seperti:</p>
+  <img src="779626a1-e489-4240-8db4-516cf3ec15e7.jpeg">
+
+</div>
+<p>Beberapa contoh untuk mendeklarasikan variabel dapat dilihat pada tabel dibawah ini:</p>
+<table>
+    <thead>
+      <tr>
+        <th>Tipe Data</th>
+        <th>Identifier</th>
+        <th>Deklarasi</th>
+        <th>Deklarasi dengan Nilai Awal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><i>int</i></td>
+        <td>totalHarga</td>
+        <td><code>int totalHarga;</code></td>
+        <td><code>int totalHarga = 150000;</code></td>
+      </tr>
+      <tr>
+        <td><i>short</i></td>
+        <td>usia</td>
+        <td><code>short usia;</code></td>
+        <td><code>short usia = 29;</code></td>
+      </tr>
+      <tr>
+        <td><i>long</i></td>
+        <td>jumlahAtom</td>
+        <td><code>long jumlahAtom;</code></td>
+        <td><code>long jumlahAtom = 9123151252214;</code></td>
+      </tr>
+      <tr>
+        <td><i>float</i></td>
+        <td>jarak</td>
+        <td><code>float jarak;</code></td>
+        <td><code>float jarak = 2.28;</code></td>
+      </tr>
+      <tr>
+        <td><i>double</i></td>
+        <td>galat</td>
+        <td><code>double galat;</code></td>
+        <td><code>double galat = 0.000000001234;</code></td>
+      </tr>
+      <tr>
+        <td><i>char</i></td>
+        <td>huruf</td>
+        <td><code>char huruf;</code></td>
+        <td><code>char huruf = 'a';</code></td>
+      </tr>
+    </tbody>
+  </table>
+<p>Deklarasi secara ringkas misalnya dapat dilakukan seperti berikut:
+ int panjang = 1, lebar = 2, luas;
+ float alas, sisi, volume;
+Tempat deklarasi variabel akan berpengaruh pada penggunaan variabel
+tersebut. Apabila deklarasi variabel dilakukan di dalam sebuah fungsi,
+variabel tersebut hanya dapat digunakan di dalam fungsi tersebut. Variabel
+seperti ini disebut variabel lokal. Apabila deklarasi dilakukan di luar fungsi,
+variabel tersebut akan dapat diakses di bagian program mana pun. Variabel
+ini disebut variabel global.</p>
+
+
+<li><b>Konstanta</b></li>
+<p>Berbeda dengan variabel yang nilainya dapat berubah, konstanta tidak dapat
+diubah. Saat dideklarasikan, nilai dari konstanta diberikan dan tidak dapat
+diubah kembali. Apabila kalian memaksa mengubah konstanta, kompilator
+akan memberikan pesan kepada kalian. Penggunaan konstanta yang lazim
+ialah untuk menyimpan nilai konstan seperti pi (π), rho (ρ), dan konstanta
+lainnya yang lazim digunakan.
+Konstanta dapat dideklarasikan seperti variabel, dengan menambah kata
+kunci const di depan tipe data. Nilai awal harus langsung diberikan pada saat
+deklarasi. Misalnya, deklarasi konstanta pi dapat dilakukan sebagai berikut:
+ const float PI = 3.14;
+</p>
+<li><b>Membaca dan Menulis</b></li>
+<p>Program komputer bisa membantu manusia kalau punya kemampuan berkomunikasi. Salah satu bentuk komunikasi dasar adalah lewat Command Line Interface (CLI), yaitu interaksi berbasis teks. Program membaca input pengguna dan menuliskan output sebagai respon.
+
+Untuk itu digunakan header stdio.h yang menyediakan fungsi input-output standar, yaitu:</p>
+</ol>
+<li>scanf → membaca data dari pengguna</li>
+<li>printf → menuliskan data ke layar</li>
+<p>Contoh sederhananya: program membaca sebuah bilangan dari pengguna lalu menampilkannya kembali.</p>
+</section>
+<section>
+  <div class="center-text">
+    <img src="c665ee49-4191-49d1-adf9-94168dc2b49d.jpeg">
+    </div>
+    <p>Pada baris keempat, program memanggil fungsi scanf untuk membaca
+masukan dari pengguna. Pada saat baris ini dieksekusi, program akan berhenti
+hingga pengguna memasukkan suatu bilangan dan menekan tombol enter.</p>
+<p>Perhatikan bahwa pada baris tersebut, fungsi scanf menerima dua buah
+parameter, yaitu %d yang merupakan spesifikasi format (format specifier) dan
+&bilangan yang merupakan variabel untuk menampung nilai yang dibaca.
+Artinya, pada saat kalian menekan enter, program akan membaca nilai
+10 yang kalian masukkan sebagai sebuah nilai bertipe data int, dan akan
+menyimpannya ke variabel bilangan. Di depan bilangan, terdapat tanda
+ampersand (&) yang wajib digunakan untuk melakukan pembacaan. Makna dari
+simbol & akan dijelaskan lebih detail pada kesempatan lain. </p>
+<p>Setiap tipe data memiliki spesifikasi format yang dapat digunakan
+untuk menjelaskan jenis data kepada program. Ingat, program membaca
+dan menyimpan semua data sebagai bilangan biner. </p>
+<table>
+  <thead>
+    <tr>
+      <th>Nama Tipe</th>
+      <th>Spesifikasi Format (Signed)</th>
+      <th>Spesifikasi Format (Unsigned)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>int</td>
+      <td>%d</td>
+      <td>%ud</td>
+    </tr>
+    <tr>
+      <td>short</td>
+      <td>%d</td>
+      <td>%ud</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>%ld</td>
+      <td>%uld</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td>%d</td>
+      <td>%ud</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>%ld</td>
+      <td>%uld</td>
+    </tr>
+    <tr>
+      <td>char</td>
+      <td>%c</td>
+      <td>%uc</td>
+    </tr>
+  </tbody>
+</table>
+<p>Baris kelima dan keenam adalah pernyataan untuk menulis menggunakan
+fungsi printf. Pada baris kelima, kalian memerintahkan program untuk
+mencetak suatu kalimat yang diapit dengan tanda petik ganda. Pada baris
+keenam, kalian memerintahkan program untuk mencetak nilai dari variabel
+bilangan. Mirip seperti fungsi scanf, kalian menemukan adanya spesifikasi
+format dan variabel. Bedanya, di depan variabel, tidak perlu ada tanda
+ampersand.</p>
+<p>Saat dipanggil, program akan mencetak nilai dari variabel bilangan dengan
+format yang diberikan. Hanya saja, ada karakter baru yang muncul, yaitu \n.
+Ini adalah escape sequence yang digunakan untuk membuat garis baru, persis
+seperti ketika kalian menekan tombol enter pada aplikasi pengolah kata. Data
+yang ditulis setelah \n akan dicetak di baris yang baru oleh program.
+Ada beberapa escape sequence lain yang dapat digunakan, yaitu:</p>
+<div class="center-text">
+  <img src="0bdc81e3-d939-437c-96de-55964b15cabe.jpeg">
+  <img src="f8d3f2fb-ee9c-47d6-9d3c-e3b4227b1cb6.jpeg">
+</div>
+<p>Tentunya, kalian juga menggunakan fungsi printf untuk mencetak tipe
+data lain, misalnya bilangan riil. Pada bilangan riil, kalian dapat membatasi
+jumlah digit di belakang desimal dengan memodifikasi spesifikasi format.
+Perhatian kode berikut yang akan menampilkan angka 12.345 ke layar.</p>
+<div class="center-text">
+  <img src="111ecd4b-dc68-4c37-9bb1-2f3ae90953b6.jpeg">
+</div>
+<p>Kalian juga dapat membaca atau menulis dua atau lebih nilai sekaligus seperti
+pada contoh berikut:
+</p>
+  <div class="center text">
+    <img src="bbb710f3-9e2f-4f02-9b17-c65698778664.jpeg">
+  </div>
+</section>
+<section>
+  <ul>
+    <li>3. Belajar Menulis Program Sambil Menyelesaikan Masalah</li>
+  </ul>
+  <p>Karena materi ini bersifat pengenalan, masalah yang diberikan sudah memiliki spesifikasi yang terstruktur. Namun, dalam praktiknya, seorang programmer harus membuat spesifikasi sendiri—termasuk menentukan tujuan program, format masukan, dan format keluaran.
+
+Nantinya, pada unit praktik lintas bidang (PLB), siswa akan diajak membuat program untuk menyelesaikan masalah nyata di lingkungan sekitar mereka.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Bagian Penjelasan</th>
+      <th>Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Nomor dan Nama Problem</td>
+      <td>Identitas dari permasalahan.</td>
+    </tr>
+    <tr>
+      <td>Deskripsi Soal</td>
+      <td>Memberikan konteks permasalahan yang perlu diketahui oleh siswa dalam membuat program.</td>
+    </tr>
+    <tr>
+      <td>Format Masukan</td>
+      <td>Memberikan susunan data yang diberikan pada program oleh pengguna, beserta ukuran dari data tersebut.</td>
+    </tr>
+    <tr>
+      <td>Format Keluaran</td>
+      <td>Memberikan susunan informasi yang akan dikeluarkan oleh program kepada pengguna.</td>
+    </tr>
+    <tr>
+      <td>Contoh Masukan</td>
+      <td>Memberikan contoh data yang dimasukkan.</td>
+    </tr>
+    <tr>
+      <td>Contoh Keluaran</td>
+      <td>Memberikan contoh informasi yang dikeluarkan program berdasarkan data yang dimasukkan.</td>
+    </tr>
+  </tbody>
+</table>
+<ul>
+  <li>4. Ekspresi</li>
+</ul>
+<p>Ekspresi merupakan bagian yang tidak terpisahkan dari program. Di dalam
+matematika, ekspresi terdiri atas kombinasi beberapa operand dan operator
+yang memiliki makna. Kalian telah terbiasa menulis ekspresi pada matematika,
+166 Informatika SMA Kelas X
+misalnya dalam penjumlahan 10 + 5 yang melibatkan dua buah operand (10 dan
+5) dan sebuah operator (+). Ekspresi pada pemrograman mirip dengan ekspresi
+yang kalian pelajari pada matematika, tetapi diperkaya dengan tambahan
+operator-operator untuk memudahkan kalian dalam menulis program. </p>
+<p>Berdasarkan jumlah operand, suatu ekspresi dapat dibagi menjadi ekspresi:</p>
+<li>Unary (satu operand), misalnya –a untuk menegasikan suatu bilangan. </li>
+<li>Binary (dua operand), misalnya a+b untuk penjumlahan. </li>
+<li>Ternary (tiga operand), misalnya a ? b : c yang akan dijelaskan lebih rinci.</li>
+<p>Berdasarkan fungsinya, operator dalam bahasa C dapat dibagi menjadi
+operator penugasan, operator aritmatika, operator logika, serta increment dan
+decrement.
+</p>
+<h3>a. Operator Penugasan</h3>
+<p>Operator penugasan (simbol '=’) untuk memberikan suatu nilai konstanta atau
+nilai yang diperoleh dari suatu ekspresi ke dalam variabel. Operand di sisi kiri akan
+menerima nilai dari operand di sisi kanan operator penugasan. Contoh penugasan
+telah kalian lakukan pada saat melakukan deklarasi variabel seperti:</p>
+<table>
+  <td>int a = 5;</td>
+</table>
+<p>Perhatikan dan ingat baik-baik bahwa makna dari simbol ‘=’ dalam bahasa C
+sangat berbeda dengan tanda “sama dengan” dalam matematika! </p>
+<h3>b. Operator Aritmatika</h3>
+<p>Operator aritmatika digunakan untuk melakukan operasi matematika yang
+kalian kenal. Ada perbedaan notasi penulisan operator dengan yang kalian
+pelajari pada mata pelajaran Matematika.</p>
+
+  <table>
+    <tr>
+      <th>Operasi Matematika</th>
+      <th>Contoh Ekspresi Aljabar</th>
+      <th>Operator Bahasa C</th>
+      <th>Ekspresi Bahasa C</th>
+    </tr>
+    <tr>
+      <td>Penjumlahan</td>
+      <td>1 + 2</td>
+      <td>+</td>
+      <td>1 + 2</td>
+    </tr>
+    <tr>
+      <td>Pengurangan</td>
+      <td>a - b</td>
+      <td>-</td>
+      <td>1 - b</td>
+    </tr>
+    <tr>
+      <td>Perkalian</td>
+      <td>ab</td>
+      <td>*</td>
+      <td>a * b</td>
+    </tr>
+    <tr>
+      <td>Pembagian</td>
+      <td>a/b</td>
+      <td>/</td>
+      <td>a / b</td>
+    </tr>
+    <tr>
+      <td>Modulo</td>
+      <td>a mod b</td>
+      <td>%</td>
+      <td>a % b</td>
+    </tr>
+    </table>
+<p>Penting: Hati-hati dalam melakukan pembagian pada bahasa C. Bahasa
+C sangat sensitif terhadap tipe data sehingga pembagian dua buah bilangan
+bulat akan menghasilkan bilangan bulat. Sebagai contoh, 10/3 pada kode
+program C saat dieksekusi akan menghasilkan nilai 3.</p>
+<p>Seperti pada matematika, suatu ekspresi dapat terdiri atas banyak operator.
+Agar ekspresi tersebut dieksekusi dengan benar, diperlukan suatu urutan operasi
+(atau operator precedence). Urutan operasi dari operator pada bahasa C ialah:
+</p>
+<li>Tanda kurung ()</li>
+<li>Operator perkalian ‘*’, pembagian ‘/’, dan modulo ‘%’.</li>
+<p>Selain operator-operator matematika tersebut, C juga memiliki operatoroperator lain yang akan dipelajari di lain kesempatan. Daftar lengkap semua
+operator pada C dapat dilihat di http://en.cppreference.com/w/c/language/
+operator_ precedence</p>
+<p>Hasil ekspresi dapat disimpan dalam suatu variabel menggunakan
+operator penugasan. Misalnya:</p>
+<table>
+  <td>a = 5;</td>
+  <td>b = a + 1;</td>
+  <td>b = b + 5;</td>
+  <td>c = (a + b)*2 + a;</td>
+  <td>d = c % b;</td>
+  <p>Ekspresi seperti b = b + 5 mungkin tidak pernah kalian temui pada mata
+pelajaran Matematika. Akan tetapi, ekspresi ini sangat lazim ditemukan
+dalam menulis kode program. Makna dari ekspresi ini ialah kalian melakukan
+perubahan pada nilai suatu variabel berdasarkan nilai variabel pada saat ini.
+Hal ini telah kalian lakukan pada saat melakukan penelusuran pada Diagram
+Alir 4 di bagian awal unit ini. </p>
+<p>Untuk ekspresi seperti ini, bahasa C menyediakan bentuk yang lebih
+ringkas yang disebut compound assignment operator atau operator penugasan
+majemuk. Misalnya, b = b + 5 dapat disingkat menjadi b += 5. Hal ini juga
+berlaku untuk operator matematika lainnya seperti b *= 2, c /= 3, dan
+seterusnya.
+</p>
+</table>
+</section>
+<section>
+  <h3>c. Operator Increment dan Decrement</h3>
+  <p>Selain operator penugasan majemuk pada bagian sebelumnya, bahasa C
+juga memberikan operator unary yang lebih khusus untuk menambah (++)
+atau mengurangi nilai suatu variabel (--) dengan angka 1. Operator ini dapat
+diletakkan sebelum (prefix) atau setelah (postfix) operand. </p>
+<p>Pada penulisan dalam bentuk prefix, perubahan nilai akan langsung
+dilakukan pada nilai variabel sebelum nilai variabel tersebut digunakan pada
+ekspresi. Sebagai contoh, setelah dua baris kode berikut dijalankan, nilai x
+akan bernilai 2 dan y akan bernilai 1.</p>
+<table>
+  <td>int x = 1;</td>
+  <td>int y = ++x;</td>
+</table>
+<p>Sebaliknya, pada penulisan dalam bentuk postfix, nilai variabel akan
+digunakan terlebih dahulu pada ekspresi, baru perubahan dilakukan. Sebagai
+contoh, setelah dua baris kode berikut dijalankan, nilai x dan y akan bernilai
+1.</p>
+<table>
+  <td>int x = 1;</td>
+  <td>int y = x++;</td>
+</table>
+<h3>d. Operator Logika, Relasional, dan Kesamaan</h3>
+<p>Di samping operator aritmatika, juga dikenal operator logika, relasional, dan
+kesamaan. Ekspresi yang menggunakan operator ini akan memiliki nilai benar
+(true atau dalam bahasa C bernilai tidak sama dengan 0) atau salah (false atau
+bernilai 0). Operator pada kategori ini memiliki peran yang sama dengan
+operator logika, relasional, dan kesamaan pada mata pelajaran Matematika. </p>
+ <table>
+    <tr>
+      <th>Aljabar</th>
+      <th>Bahasa C</th>
+      <th>Contoh</th>
+      <th>Makna</th>
+    </tr>
+    <!-- Kesamaan -->
+    <tr>
+      <td colspan="4" class="section">Operator Kesamaan / Pertidaksamaan</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>==</td>
+      <td>a == b</td>
+      <td>Apakah nilai a sama dengan b?</td>
+    </tr>
+    <tr>
+      <td>≠</td>
+      <td>!=</td>
+      <td>a != b</td>
+      <td>Apakah nilai a tidak sama dengan b?</td>
+    </tr>
+
+    <!-- Relasional -->
+    <tr>
+      <td colspan="4" class="section">Operator Relasional</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>&gt;</td>
+      <td>a &gt; b</td>
+      <td>Apakah a lebih besar dari b?</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>&lt;</td>
+      <td>a &lt; b</td>
+      <td>Apakah a lebih kecil dari b?</td>
+    </tr>
+    <tr>
+      <td>≥</td>
+      <td>&gt;=</td>
+      <td>a &gt;= b</td>
+      <td>Apakah a lebih besar atau sama dengan b?</td>
+    </tr>
+    <tr>
+      <td>≤</td>
+      <td>&lt;=</td>
+      <td>a &lt;= b</td>
+      <td>Apakah a lebih kecil atau sama dengan b?</td>
+    </tr>
+
+    <!-- Logika -->
+    <tr>
+      <td colspan="4" class="section">Operator Logika</td>
+    </tr>
+    <tr>
+      <td>AND</td>
+      <td>&amp;&amp;</td>
+      <td>a &gt; 0 &amp;&amp; b &gt; 0</td>
+      <td>Apakah a dan b lebih besar daripada 0?</td>
+    </tr>
+    <tr>
+      <td>OR</td>
+      <td>||</td>
+      <td>a &gt; 0 || b &gt; 0</td>
+      <td>Apakah a atau b lebih besar daripada 0?</td>
+    </tr>
+    <tr>
+      <td>NOT</td>
+      <td>!</td>
+      <td>!(a &gt; 0)</td>
+      <td>Apakah a tidak lebih besar daripada 0?</td>
+    </tr>
+  </table>
+<h3>e. Operator Kondisional (Ternary)</h3>
+<p>Operator kondisional adalah operator ternary yang akan mengembalikan nilai
+berdasarkan suatu kondisi tertentu. Misalnya, kalian ingin mengembalikan
+nilai 1 jika suatu ekspresi a < 3 bernilai benar, dan mengembalikan nilai 0 jika
+sebaliknya. Kalian dapat menuliskannya dalam bentuk</p>
+<table>
+  <td>n = ((a<3)?1:0) </td>
+</table>
+<p>Bentuk umum penggunaan operator ini adalah sebagai berikut:
+</p>
+<table>
+  <td>(kondisi ? ekspresi-1 : ekspresi-2 )</td>
+  <p>Ekspresi 1 akan dikembalikan jika kondisi bernilai benar, sedangkan ekspresi
+2 dikembalikan jika kondisi bernilai salah. </p>
+</table>
+<ul>
+  <li>5 Struktur Kontrol Keputusan</li>
+</ul>
+<p>Pada bagian ini kita akan mempelajari bagaimana pengambilan keputusan
+dilakukan dalam sebuah program. Istilah yang sering digunakan untuk ini adalah
+kondisional. Apa itu kondisional? Secara sederhana, kondisional adalah sebuah
+bentuk pernyataan “jika ..., maka ...”. Pernyataan ini dibuat untuk mengekspresikan
+sebuah aksi berdasarkan sebuah kondisi tertentu. Sebagai contoh, ketika kita
+diminta untuk mengklasifikasikan sebuah bilangan merupakan bilangan ganjil
+atau genap, maka dapat kita membuat sebuah aturan sebagai berikut:</p>
+<li>Jika bilangan tersebut habis dibagi 2, maka bilangan tersebut
+termasuk bilangan genap.</li>
+<li>Jika bilangan tersebut tidak habis dibagi 2, maka bilangan tersebut
+termasuk bilangan ganjil.</li>
+<p>Proses tersebut merupakan salah satu ilustrasi dari sebuah pernyataan
+kondisional. Pada bahasa pemrograman C, ada beberapa jenis pernyataan
+kondisional, misalnya pernyataan if-else, pernyataan switch-case, dan pernyataan
+yang bersarang.</p>
+</section>
+<section>
+  <h3>a. Struktur Kontrol Keputusan If - Else</h3>
+<p>Ada beberapa variasi penggunaan struktur kontrol keputusan If - Else. Bentuk
+umum dari pernyataan if adalah sebagai berikut.</p>
+<div class="center-text">
+  <img src="9e4e6a84-9ecc-4a16-bd95-899e7918410e.jpeg">
+  <p>Bagian kondisi dapat diisi dengan ekspresi yang menghasilkan nilai benar
+atau salah. Apabila kondisi menghasilkan nilai benar, semua pernyataan yang
+berada di dalam struktur kontrol keputusan tersebut akan dieksekusi oleh
+program. Sekarang, perhatikan program berikut, dan lakukanlah penelusuran
+untuk memeriksa keluaran dari program tersebut.</p>
+  <img src="4ccc8c33-92b4-424f-ab65-9deebe77a609.jpeg">
+  <p>Program tersebut menggunakan struktur keputusan pada baris 6-8.
+Ekspresi yang digunakan pada bagian kondisi ialah a==b, sedangkan
+pernyataan yang dieksekusi jika kondisi benar terdapat pada baris 7.</p>
+  <img src="9af694f7-efac-408f-8b86-25989833d99b.jpeg">
+  <p>Struktur kontrol keputusan dapat menambahkan blok else yang akan
+dieksekusi apabila kondisi bernilai salah. </p>
+  <img src="4e9-6d69-42d9-8d89-e635b6fea899.jpeg">
+  <p>Misalnya, untuk mengecek apakah suatu bilangan merupakan bilangan
+ganjil atau genap, kalian dapat memanfaatkan struktur if-else sebagai berikut.</p>
+  <img src="d3fd8493-2a58-484e-94fd-a9e44af50609.jpeg">
+  <p>Apabila kondisi makin kompleks, struktur if-else ini dapat dikembangkan
+kembali menjadi:</p>
+  <img src="0512f6ba-df43-41a9-84b1-02bca0a44781.jpeg"> 
+</div>
+<h3>b. Struktur Kontrol Keputusan Switch-Case</h3>
+<p>Struktur kontrol keputusan yang memiliki cabang banyak dapat dibuat lebih
+sederhana menggunakan struktur switch-case. Bentuk umum dari struktur ini
+ialah sebagai berikut.</p>
+<div class="center-text">
+  <img src="876b5e49-84ba-4412-b79f-9348d995f7a5.jpeg">
+  <p>Sebagai contoh, perhatikan kode program berikut:</p>
+  <img src="fb6aa232-ce9e-4739-bd63-bc200ae66abb.jpeg">
+  <p>Pada program di atas, struktur switch-case memeriksa nilai yang ada pada
+variabel sisa pembagian. Karena nilai tersebut merupakan sisa pembagian
+sebuah bilangan dengan empat, hanya ada empat kemungkinan nilai, yaitu 0
+sampai 3. Setiap kemungkinan nilai tersebut diperiksa melalui empat buah
+struktur case yang akan mencetak kalimat ke layar yang sesuai dengan sisa
+pembagian yang diperoleh.
+</p>
+</div>
+</section>
+<section>
+  <h3>c. Struktur Kontrol Keputusan Bersarang</h3>
+  <p>Sebuah struktur kontrol dapat menjadi bagian dari suatu struktur kontrol
+lain. Hal ini disebut nested atau tersarang. Pada contoh berikut, diberikan
+sebuah kode program yang memiliki struktur kontrol keputusan bersarang.
+Telusurilah program tersebut jika program diberi masukan 1000 dan 10.</p>
+<div class="center-text">
+  <img src="74eeddd3-4f1d-4ca9-b612-7dff54fa3742.jpeg">
+</div>
+<ul>
+  <li>6. Struktur Kontrol Perulangan</li>
+  
+</ul>
+<p>Salah satu keunggulan program komputer daripada manusia ialah
+kemampuannya untuk mengolah data yang berukuran besar atau
+melaksanakan suatu aksi berulang kali dalam periode waktu yang lama
+tanpa merasa bosan atau lelah. Hal ini dimungkinkan dengan adanya suatu
+kontrol perulangan. Pernyataan perulangan atau loop merupakan struktur
+program untuk keperluan iterasi, yaitu memproses satu atau beberapa
+pernyataan secara berulang (looping) berdasarkan kondisi tertentu. Program
+C menyediakan tiga bentuk pernyataan loop, yaitu:</p>
+<ol>
+<li><b>for loop</b></li>
+<li><b>while loop</b></li>
+<li><b>do...while loop</b></li>
+</ol>
+<h3>a. Struktur Kontrol Perulangan for</h3>
+<p>Pernyataan ini umumnya digunakan untuk memproses pernyataan secara
+berulang-ulang, dengan jumlah perulangan yang dilakukan telah diketahui
+sebelumnya. Misalnya, berjalan sebanyak n langkah ke depan, atau mencetak
+barisan dari suku pertama hingga suku ke-n. Struktur kontrol perulangan for
+adalah sebagai berikut:
+</p>
+<div class="center-text">
+  <img src="ad136665-9d5e-4030-aa4e-c2b8eeda4455.jpeg">
+</div>
+<p>Struktur di atas akan dijalankan melalui proses berikut.</p>
+<ol>
+  <li>Ekspresi expr1 akan dieksekusi ketika program menjalankan struktur
+for tersebut. Ekspresi ini biasanya berisi inisialisasi suatu variabel counter
+yang digunakan untuk menghitung jumlah perulangan yang telah
+dilakukan.</li>
+  <li>Ekspresi expr2 merupakan suatu ekspresi bernilai benar atau salah
+(boolean) yang akan dicek sebelum pernyataan di dalam blok struktur
+dieksekusi. Apabila ekspresi ini bernilai benar, pernyataan akan
+dieksekusi. Sebaliknya, apabila ekspresi bernilai salah, pernyataan tidak
+akan dieksekusi dan perulangan berakhir. Dengan kata lain, pada bagian ini, kalian menuliskan sebuah pernyataan yang merupakan kondisi
+berhenti (stopping criteria) untuk memastikan perulangan yang kalian
+buat memiliki langkah yang terbatas (dipastikan berhenti).</li>
+<li>Ekspresi expr3 merupakan sebuah pernyataan yang dijalankan setelah semua
+pernyataan di dalam struktur for dieksekusi. Biasanya, pernyataan ini dibuat
+untuk mengubah nilai variabel counter yang akan makin mendekati kondisi
+berhenti (memastikan nilai counter akan konvergen ke kondisi berhenti). </li>
+</ol>
+<p>Walaupun ketiga ekspresi tersebut bersifat opsional (tidak harus ada),
+kalian disarankan untuk menuliskan ketiga ekspresi tersebut saat membuat
+program dengan jelas dan lengkap. Untuk saat ini, kalian perlu memahami
+teknik untuk menulis ketiga ekspresi tersebut dengan baik.</p>
+<p>Perhatikan contoh kode program menulis bilangan bulat berikut. Pada
+contoh tersebut, program akan menulis bilangan bulat dari 0 hingga kurang
+dari n. Telusurilah kode program tersebut dengan teknik penelusuran yang
+telah kalian pelajari pada saat menelusuri suatu diagram alir!</p>
+<div class="center-text">
+  <img src="5913b1ba-dee5-4f1b-83b9-d9b5a264504d.jpeg">
+  <p>Keluaran program tersebut saat diberi masukan 5 adalah:</p>
+  <img src="af1c7695-cbb3-40ca-8a38-1b66b7fcb1c6.jpeg">
+</div>
+<p>Pada contoh tersebut, variabel counter yang digunakan ialah i yang nilainya
+diinisialisasi (diberi nilai awal) dengan nilai 0. Pada bahasa C, lazimnya
+counter, dimulai dari nilai 0. Berbeda dengan proses pencacahan yang biasa
+kalian lakukan dari 1 di dunia nyata. Hal ini terkait dengan beberapa aspek
+teknis di bahasa C yang dimulai dari 0. </p>
+<p>Perlu
+diingat bahwa inisiasi dengan 0 ini hanyalah suatu kebiasaan masyarakat
+pemrogram dalam bahasa C, dan kalian tetap dapat melakukan pencacahan
+mulai dari 1. Kalian dapat mencoba mengubah kode program di atas sehingga
+counter berjalan dari 1. Selain counter yang berjalan menaik (ascending), kalian
+juga dapat membuat suatu counter yang berjalan turun (descending). Contoh
+ini disajikan misalnya pada Diagram Alir 4 dan 5 pada bagian algoritma.</p>
+<div clsas="center-text">
+  <img src="d22d7754-ceb1-4481-8daf-739330f48a4e.jpeg">
+</div>
+</section>
+<section>
+  <h3>b. Struktur Kontrol Perulangan While</h3>
+  <p>Saat merancang perulangan, kalian bisa jadi tidak dapat menentukan berapa
+kali perulangan akan dilakukan. Akan tetapi, kalian mengetahui kondisi
+berhentinya. Misalkan instruksi berikut pada dunia nyata, “berjalan luruslah
+sampai ujung jalan, kemudian belok kiri.” Instruksi tersebut tidak memberikan
+gambaran jelas jumlah langkah yang akan kalian lakukan. Namun, secara
+naluriah, kalian mengetahui kapan kalian harus berhenti berjalan lurus, lalu
+berbelok ke arah kiri.</p>
+<p>Pada program, suatu struktur kontrol while dikenal untuk melakukan
+perulangan seperti pada contoh di atas. Struktur kontrol tersebut dapat ditulis
+sebagai berikut. Pernyataan akan dieksekusi terus-menerus selama ekspresi
+kondisi bernilai benar. </p>
+<div class="center-text">
+  <img src="12ef1b0f-aeef-4765-9aae-2d4dc682e8f9.jpeg">
+  <p>Sebagai contoh, misalnya kalian akan menulis kode program untuk membaca
+dan menuliskan kembali bilangan bulat positif. Hal ini terus dilakukan hingga
+program membaca nilai -1. Program tersebut dapat kalian lihat di bawah ini. </p>
+<img src="2023c523-3c4e-40d7-9916-fb2de707b3e7.jpeg">
+</div>
+<h3>c. Struktur Kontrol Perulangan Do – While</h3>
+<p>Struktur kontrol do-while memiliki perilaku yang mirip dengan while,
+yaitu kalian hanya mengetahui kondisi berhenti dari perulangan tersebut.
+Perbedaannya ialah struktur do-while dipastikan akan dikerjakan setidaknya
+satu kali. Bentuk umum pernyataan do .. while adalah sebagai berikut. </p>
+<div class="center-text">
+  <img src="162bcb3b-ed1f-46e5-a43a-d532d7644338.jpeg">
+  <p>Salah satu contoh penggunaan struktur do-while ialah ketika kalian menulis
+sebuah program interaktif yang akan meminta pengguna memasukkan
+kembali suatu nilai hingga nilai tersebut memenuhi suatu syarat. Hal ini akan
+sering kalian alami ketika kalian diminta untuk mengisi ulang (retry) saat
+menggunakan sebuah program atau mengisi sebuah formulir elektronik. </p>
+<p>Misal, program berikut akan terus meminta pengguna memasukkan nilai
+sampai pengguna tersebut memasukkan bilangan bulat positif. </p>
+<img src="20dc2221-a197-4cb1-a028-cdd7acd14e54.jpeg">
+</div>
+<h3>d. Struktur Kontrol Perulangan Bersarang</h3>
+<p>Sama seperti struktur kontrol keputusan, kalian dapat meletakkan struktur
+kontrol perulangan secara bersarang. Misalnya, pada contoh program berikut
+yang akan mencetak suatu pola berbentuk persegi menggunakan karakter
+asterisk ‘*’.</p>
+<div class="center-text">
+  <img src="b11f5fda-3368-419d-b931-a9ae5bbc48eb.jpeg">
+</div>
+</section>
+<section>
+  <ul>
+    <li>7.	 Fungsi</li>
+  </ul>
+  <p>Selama ini, kalian telah sering bertemu dengan fungsi. Di Matematika, kalian
+membuat suatu persamaan menggunakan fungsi seperti y = f(x) = x + 1. Fungsi
+f(x) menerima sebuah masukan x yang disebut fungsi daerah dan menghasilkan nilai y yang merupakan fungsi wilayah. Fungsi sangat berhubungan dengan
+kemampuan abstraksi yang telah kalian pelajari di berpikir komputasional
+sehingga program yang kalian tulis dapat ditulis dengan lebih baik. </p>
+<p>Sejauh ini, kalian juga telah menggunakan beberapa fungsi dalam berlatih
+pemrograman. Pada Diagram Alir, kalian telah mengenal sebuah simbol
+subprogram untuk memberikan abstraksi dari suatu proses lain yang kalian
+gunakan dalam solusi kalian. Pada program bahasa C, struktur main merupakan
+sebuah fungsi yang akan dieksekusi oleh sistem operasi ketika program dijalankan.
+Selain itu, kalian pun telah menggunakan fungsi seperti printf dan scanf. </p>
+<p>Pada hakikatnya, fungsi pada program melambangkan suatu kumpulan
+pernyataan yang memiliki tujuan tertentu. Tujuan tersebut direpresentasikan
+oleh nama dari fungsi tersebut. Misalnya, scanf yang memiliki fungsi untuk
+membaca (scan) nilai dari pengguna. Fungsi juga dapat menerima parameterparameter, dan juga dapat mengembalikan suatu nilai. Dengan membungkus
+kumpulan instruksi tadi ke dalam suatu fungsi, kalian dapat menggunakan
+kembali fungsi tersebut di berbagai lokasi dalam program kalian. </p>
+<h3>a. Membuat	Fungsi</h3>
+<p>Saat membuat suatu fungsi baru, kalian perlu menentukan tiga hal tersebut:
+nama fungsi yang merepresentasikan tujuan dari fungsi, parameter yang
+dimasukkan ke dalam fungsi, serta nilai yang dikembalikan. Ketiga informasi
+ini disebut prototipe dari fungsi. Adapun pernyataan-pernyataan yang ada di
+dalam fungsi tersebut disebut implementasi dari fungsi. </p>
+<p>Misal, kalian akan membuat sebuah fungsi untuk menghitung
+luas lingkaran. Maka, kalian perlu menetapkan ketiga hal tersebut dan
+menghasilkan prototipe fungsi berikut. Dari prototipe tersebut, kalian dapat
+melihat bahwa fungsi hitungLuasLingkaran memerlukan sebuah parameter
+dengan tipe data float yang merupakan radius dari lingkaran. Saat dipanggil,
+fungsi ini akan mengembalikan sebuah nilai float yang merupakan luas
+lingkaran.</p>
+<div class="center-text">
+  <img src="496c652f-bc2c-4d28-ba00-10e93972ac30.jpeg">
+
+<p>Jika dituliskan lengkap dengan implementasinya, fungsi tersebut dapat
+ditulis menjadi:</p>
+<img src="2938cc1a-3659-4260-a1d6-09576ea4099d.jpeg">
+</div>
+<p>Pada kode program tersebut, kata kunci return digunakan untuk
+mengakhiri fungsi dan mengembalikan suatu nilai. Dalam hal ini, nilai yang
+dikembalikan ialah luas lingkaran. </p>
+<p>Perlu diingat bahwa prototipe dari fungsi-fungsi berikut akan dianggap
+sebagai fungsi yang berbeda karena memiliki parameter yang berbeda dari
+tipe data. Hal ini disebut overloading. </p>
+<div class="center-text">
+  <img src="78caf314-7ef6-4444-9933-96bcbc19a4f2.jpeg">
+  <p>Kalian juga dapat membuat fungsi dengan jumlah parameter lebih dari
+satu. Misalnya, untuk menghitung luas persegi panjang berikut:</p>
+<img src="8dbb986d-41a0-46c9-9d71-2f593ff4d538.jpeg">
+</div>
+<p>Tentunya, kalian juga dapat membuat fungsi yang tidak memiliki
+parameter masukan, seperti yang kalian lakukan pada saat membuat fungsi
+main() pada program.</p>
+<h3>b. Memanggil	Fungsi</h3>
+</section>
+
+
+</main>
+<footer>
+    © 2025 Media Pembelajaran Informatika | Dibuat oleh Amanda Ayudhia
+  </footer>
+
+</Body>
+</html>

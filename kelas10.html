@@ -2,191 +2,57 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beranda Kelas 10</title>
-  <!-- Pakai Google Fonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #13008f;
-      margin: 0;
-      padding: 40px 20px;
-      color: #2e2c4a;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    header h1 {
-      font-weight: 600;
-      font-size: 2.5rem;
-      color: #ffffff; /* ungu tua */
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1.2rem;
-      color: #ffffff; /* ungu abu */
-    }
-    .btn-group {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 700px;
-      width: 100%;
-    }
-    .btn {
-      background: linear-gradient(135deg, #6c63ff, #3a3dc8); /* ungu ke biru */
-      color: white;
-      padding: 18px 35px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 8px 15px rgba(108, 99, 255, 0.4);
-      transition: all 0.3s ease;
-      flex: 1 1 200px;
-      text-align: center;
-    }
-    .btn:hover {
-      background: linear-gradient(135deg, #574fde, #2b2fad);
-      box-shadow: 0 12px 20px rgba(87, 79, 222, 0.6);
-      transform: translateY(-3px);
-    }
-    nav {
-      margin-top: 40px;
-    }
-    nav a {
-      color: #6c63ff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #3a3dc8;
-      text-decoration: underline;
-    }
-
-    /* Materi Tambahan */
-    #materiTambahanSiswa {
-      max-width: 700px;
-      margin-top: 50px;
-      width: 100%;
-      color: #fff;
-    }
-    #materiTambahanSiswa h2 {
-      margin-bottom: 20px;
-      font-weight: 700;
-      font-size: 1.8rem;
-      text-align: center;
-      color: #a3a7ff;
-    }
-    .materi-item {
-      background: #2f37a0;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-    }
-    .materi-item h3 {
-      margin-bottom: 10px;
-    }
-    .materi-item a {
-      color: #a3a7ff;
-      font-weight: 600;
-      word-break: break-all;
-    }
-    .materi-item p {
-      color: #ccc;
-      white-space: pre-line;
-    }
-    iframe {
-      width: 100%;
-      height: 250px;
-      border: none;
-      border-radius: 8px;
-    }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-      .btn {
-        font-size: 1rem;
-        padding: 15px 25px;
-      }
-    }
-  </style>
+  <!-- CSS eksternal -->
+  <link rel="stylesheet" href="kelas10.css">
 </head>
-<body>
+<body id="kelas10">
+  <!-- HEADER -->
   <header>
-    <h1>Selamat Datang di Beranda Kelas 10</h1>
+    <h1>✨ Beranda Kelas 10 ✨</h1>
   </header>
 
+  <!-- NAVIGASI -->
   <div class="btn-group">
     <a href="materi10-1.html" class="btn">Materi Semester 1</a>
     <a href="materi10-2.html" class="btn">Materi Semester 2</a>
     <a href="kuis10.html" class="btn">Kuis</a>
   </div>
 
-  <!-- Bagian Materi Tambahan -->
+  <!-- BAGIAN MATERI TAMBAHAN -->
   <section id="materiTambahanSiswa">
-    <h2>Materi Tambahan</h2>
-    <div id="daftarMateriTambahan"></div>
+    <h2>📚 Materi Tambahan</h2>
+    <div id="daftarMateriTambahan">
+      <!-- Materi tambahan kelas 10 akan muncul di sini -->
+    </div>
   </section>
 
+  <!-- FOOTER NAV -->
   <nav>
-    <a href="logout.html">Logout</a>
+    <a href="logout.html">🚪 Logout</a>
   </nav>
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <script>
-    function tampilkanMateriTambahan(kelasTujuan) {
-      // Ambil data materi tambahan dari localStorage, format array objek:
-      // { judul, isi, tipe: 'video'|'link'|'text', kelas }
-      const materi = JSON.parse(localStorage.getItem('materi')) || [];
-      const container = document.getElementById('daftarMateriTambahan');
-      container.innerHTML = '';
-
-      // Filter materi sesuai kelas tujuan dan tampilkan
-      const materiKelasIni = materi.filter(m => m.kelas === kelasTujuan);
-
-      if (materiKelasIni.length === 0) {
-        container.innerHTML = '<p>Tidak ada materi tambahan saat ini.</p>';
-        return;
-      }
-
-      materiKelasIni.forEach(m => {
-        let html = `<div class="materi-item">`;
-        html += `<h3>${m.judulMateri}</h3>`;
-
-        if(m.kontenMateri.startsWith('https://www.youtube.com/') || m.kontenMateri.startsWith('https://youtu.be/')) {
-          // Ubah link Youtube biasa ke embed (kalau ada)
-          let embedUrl = m.kontenMateri
-            .replace('watch?v=', 'embed/')
-            .replace('youtu.be/', 'www.youtube.com/embed/');
-          html += `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
-        } else if(m.kontenMateri.startsWith('http')) {
-          // Kalau link biasa
-          html += `<a href="${m.kontenMateri}" target="_blank" rel="noopener">${m.kontenMateri}</a>`;
-        } else {
-          // Text biasa
-          html += `<p>${m.kontenMateri}</p>`;
-        }
-
-        html += `</div>`;
-        container.innerHTML += html;
-      });
-    }
-
-    // Panggil fungsi dengan kelas 10
-    tampilkanMateriTambahan('10');
+    const firebaseConfig = {
+      apiKey: "AIzaSyCDYgssULkWU3f2H-iIRxkmEmlu6LwqBvk",
+      authDomain: "media-pembelajaran-30fdf.firebaseapp.com",
+      databaseURL: "https://media-pembelajaran-30fdf-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "media-pembelajaran-30fdf",
+      storageBucket: "media-pembelajaran-30fdf.firebasestorage.app",
+      messagingSenderId: "77106453950",
+      appId: "1:77106453950:web:dd45c38bacdcc9f4326def",
+      measurementId: "G-RJK9KYJ0KV"
+    };
+    firebase.initializeApp(firebaseConfig);
   </script>
+
+  <!-- JS eksternal -->
+  <script src="kelas10.js"></script>
 </body>
 </html>

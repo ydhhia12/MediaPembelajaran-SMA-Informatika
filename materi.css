@@ -1,0 +1,154 @@
+/* ========== General Body & Layout ========== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1a0a4e, #3b0f80); /* navy ungu glowing */
+  margin: 0;
+  color: #e0e0ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  transition: background 0.5s ease;
+}
+
+/* ========== Header ========== */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-weight: 800;
+  font-size: 3rem;
+  margin-bottom: 12px;
+  color: #fffc00;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fffc00,
+    0 0 20px #fffc00,
+    0 0 30px #ff00ff,
+    0 0 40px #ff00ff,
+    0 0 50px #ff00ff;
+  transition: all 0.3s ease;
+}
+
+header h1:hover {
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #fffc00,
+    0 0 30px #fffc00,
+    0 0 40px #ff00ff,
+    0 0 50px #ff00ff,
+    0 0 60px #ff00ff;
+  transform: scale(1.05);
+}
+
+/* ========== Navigation ========== */
+nav {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+nav a {
+  color: #d1d1ff;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 15px;
+  font-size: 1.2rem;
+  text-shadow: 0 0 5px #fff, 0 0 10px #9b59b6;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 0 0 15px #9b59b6, 0 0 20px #9b59b6;
+  transform: scale(1.15);
+}
+
+/* ========== Section Styling ========== */
+section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 35px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+              0 0 20px #9b59b6;
+  max-width: 850px;
+  width: 100%;
+  color: #e0e0ff;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 25px #8e44ad;
+}
+
+/* ========== Section Title ========== */
+h2 {
+  border-bottom: 4px solid #9b59b6;
+  padding-bottom: 12px;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px #fff, 0 0 10px #9b59b6;
+}
+
+/* ========== List Styling ========== */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  background: linear-gradient(135deg, #2e0c5c, #5a1fa8);
+  margin-bottom: 20px;
+  padding: 22px 28px;
+  border-radius: 18px;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 10px #9b59b6;
+  user-select: none;
+  color: #f0f0ff;
+}
+
+ul li:hover {
+  background: linear-gradient(135deg, #5a1fa8, #2e0c5c);
+  transform: translateX(12px) scale(1.03);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.7), 0 0 15px #8e44ad, 0 0 25px #b39ddb;
+}
+
+/* ========== Emoji Styling ========== */
+ul li span.emoji {
+  font-size: 2rem;
+  filter: drop-shadow(1px 1px 3px #fff);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  nav a {
+    font-size: 1rem;
+    margin: 0 10px;
+  }
+
+  ul li {
+    font-size: 1.1rem;
+    padding: 18px 22px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}

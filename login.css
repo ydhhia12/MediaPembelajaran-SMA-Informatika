@@ -1,0 +1,117 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Body */
+body {
+  display: flex;
+  flex-direction: column; /* Supaya footer bisa di bawah */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0d0d0d;
+}
+
+/* Container */
+.login-box {
+  background: #1a1a1a;
+  padding: 50px 40px;
+  border-radius: 20px;
+  width: 380px;
+  box-shadow: 0 0 30px #00fff7, 0 0 60px #ff00f7;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 50px #00fff7, 0 0 80px #ff00f7;
+}
+
+/* Title */
+.login-box h2 {
+  color: #00fff7;
+  font-size: 32px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px #00fff7, 0 0 10px #ff00f7;
+}
+
+/* Input Fields */
+.login-box input[type="text"],
+.login-box input[type="password"],
+.login-box input[type="email"],
+.login-box select {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+  background: #222;
+  box-shadow: 0 0 10px #00fff7, 0 0 15px #ff00f7;
+}
+
+/* Button */
+.login-box button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00fff7, #ff00f7);
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: linear-gradient(135deg, #ff00f7, #00fff7);
+  box-shadow: 0 0 20px #00fff7, 0 0 30px #ff00f7;
+}
+
+/* Login Message */
+#login-message {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ff004f;
+}
+
+/* Register Link */
+.login-box p a {
+  color: #00fff7;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.login-box p a:hover {
+  color: #ff00f7;
+  text-shadow: 0 0 5px #ff00f7;
+}
+
+/* Footer Glowing */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 0 8px #00fff7, 0 0 12px #ff00f7, 0 0 15px #ff00f7;
+  font-size: 14px;
+}

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 5 - Jaringan Komputer dan internet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="bab.css">
+</head>
+<Body>
+<header>
+    <h1>Bab 5: Jaringan Komputer dan Internet</h1>
+  </header>
+  <button class="btn-kembali" onclick="window.location.href='materi10-2.html'">
+  ← Kembali ke Daftar Materi
+</button>
+<main>
+    <section>
+        <h2>A. Jaringan Lokal dan Internet</h2>
+        <p>Jaringan komputer menggunakan dua buah atau lebih perangkat dengan
+menggunakan sebuah sistem komunikasi yang terstandarisasi secara global,
+yaitu Transmission Control Protocol/Internet Protocol Suite (TCP/IP). Jaringan
+komputer yang menghubungkan komputer ada dua jenis, yaitu jaringan lokal
+dan jaringan internet. Perbedaan keduanya ada pada jangkauannya. Jaringan
+lokal memiliki jangkauan yang lebih terbatas dibandingkan dengan jaringan
+internet</p>
+<h3>1. Jaringan Lokal</h3>
+<p>Jaringan lokal adalah jaringan komputer berkabel maupun nirkabel yang
+menghubungkan komputer dengan perangkat lainnya dalam area terbatas
+seperti tempat tinggal, sekolah, laboratorium, kampus universitas, atau
+gedung kantor. Perangkat atau komputer yang ada di jaringan lokal hanya
+bisa diakses oleh perangkat lain yang berada pada jaringan yang sama. Setiap
+perangkat atau komputer yang terhubung dalam jaringan lokal akan memiliki
+ID unik yang berbeda satu sama lainnya dan disebut Alamat IP (IP address),
+misalnya 192.168.0.1. Dalam implementasinya, biasanya satu perangkat
+akan disebut server, sedangkan perangkat lainnya disebut client.
+</p>
+<div class="center-text">
+    <img src="jaringan lokal.png" alt="Gambar di tengah">
+</div>
+<p>Gambar diatas menunjukkan contoh
+jaringan lokal yang menghubungkan
+lima buah perangkat, yaitu tiga buah
+komputer, satu buah HP, dan satu buah
+laptop. Jika kalian perhatikan, setiap
+perangkat memiliki IP address yang
+berbeda. Karena IP address ini hanya
+berlaku pada jaringan lokal, bisa juga
+disebut sebagai IP private</p>
+<p>IP address merupakan
+identitas sebuah komputer dalam jaringan komputer. IP address berfungsi
+sebagai alamat pengiriman data dari satu perangkat ke perangkat lain.
+Mungkin kalian bisa menganalogikan IP address seperti alamat rumah. Saat
+akan mengirim paket, tentunya akan lebih mudah kalau sudah mengetahui
+alamat pastinya. Sama halnya dengan ketika kalian akan mengirim data dari
+satu perangkat ke perangkat lain. Kalian harus tahu data itu akan dikirim ke
+komputer dengan IP address yang mana. IP address sendiri biasanya terdiri atas 32 bit yang dipisah menjadi 4 bagian sehingga setiap bagian akan terdiri atas
+8 bit. Nah, 8 bit ini merupakan bilangan biner yang diterjemahkan ke dalam
+bilangan desimal. Tentu kalian sudah belajar tentang bilangan biner. Berikut
+ini contoh dari IP address.
+</p>
+<ul>
+    <li><strong>IP address dalam bilangan biner </strong>: 10101100.11011001.00001010.00001110</li>
+<li><strong>IP address</strong>: 172.217.10.14</li>
+</ul>
+<h3>2. Internet</h3>
+<p>Internet sendiri merupakan kepanjangan dari interconnection-networking,
+yaitu sebuah jaringan komputer yang menghubungkan banyak perangkat
+di seluruh dunia. Jaringan internet ini memungkinkan adanya pertukaran
+data paket (packet switching communication protocol) untuk melayani miliaran
+pengguna di seluruh dunia. Secara konsep, jaringan internet juga disebut
+jaringan area luas (Wide Area Network).
+Pada awalnya di tahun 1960-an, internet hanyalah sebagai proyek
+penelitian yang didanai oleh Departemen Pertahanan Amerika Serikat pada
+tahun 1969, melalui proyek lembaga ARPA yang mengembangkan jaringan
+yang dinamakan ARPANET (Advanced Research Project Agency Network).
+Kemudian, berkembang menjadi infrastruktur publik pada 1980-an dengan
+dukungan dari banyak universitas negeri dan perusahaan swasta. </p>
+<div class="center-text">
+    <img src="jaringan-internet_169.png" alt="Gambar di Tengh">
+</div>
+    </section>
+    <section>
+        <p>Untuk bisa mengakses jaringan internet, biasanya perangkat apa pun
+harus terhubung dengan salah satu Internet Service Provider (ISP) dengan
+menggunakan mekanisme koneksi internet tertentu. Jika jaringan lokal
+terhubung dengan ISP, baik secara berkabel maupun nirkabel, perangkat
+dalam jaringan lokal bisa mengakses internet. Hal ini ditunjukkan dengan
+garis merah (yang diasumsikan sebagai kabel) pada gambar di atas. Sama seperti
+jaringan lokal, setiap perangkat pada jaringan internet juga harus memiliki
+IP address yang berbeda-beda. Karena IP address ini berlaku secara global,
+bisa juga disebut IP public. Akan tetapi, tidak semua perangkat lokal yang
+terhubung dengan internet memiliki IP public karena biasanya IP public hanya
+digunakan pada perangkat utama yang terhubung dengan jaringan internet
+secara langsung, dalam hal ini ada perangkat modem yang terhubung dengan
+ISP</p>
+<h3>3. Konektivitas Internet</h3>
+<p>Koneksi dengan internet pada umumnya dilakukan menggunakan kabel
+internet yang bisa berupa kabel coaxial, kabel fiber optik maupun kabel twisted
+pair. Meski demikian, kalian juga bisa terhubung ke jaringan internet tanpa
+menggunakan kabel (wireless connection). Baik menggunakan kabel maupun
+tanpa kabel, keduanya memiliki metode tersendiri cara terkoneksi ke jaringan
+internet. Berikut ini beberapa jenis koneksi internet yang memungkinkan
+perangkat kalian terhubung ke dalamnya.</p>
+<h4>a. Konektivitas Internet pada Jaringan Berkabel
+</h4>
+<p>Konektivitas internet pada jaringan berkabel pada umumnya memanfaatkan
+jaringan kabel telepon maupun televisi yang terhubung dengan Internet
+Service Provider. Berikut ini beberapa konektivitas pada jaringan berkabel.</p>
+
+<ul>
+    <li><strong>Dial-Up PSTN (Public Switched Telephone Network)
+</strong>: Teknologi awal koneksi internet di Indonesia yang menggunakan jaringan telepon rumah. Perangkat yang dibutuhkan: komputer, modem, dan sambungan telepon rumah. Koneksi dilakukan melalui jalur PSTN untuk terhubung ke ISP. Kecepatan akses sangat rendah, hanya sekitar 12–20 Kbps dengan maksimum 56 Kbps.</li>
+<div class="center-text">
+    <img src="Diagram Konektivitas Internet Jaringan Berkabel melalui Dial-Up dan ASDL.jpeg" alt="Gambar di Tengah">
+</div>
+<li><strong>ADSL (Asymmetric Digital Subscriber Line)</strong>: Teknologi koneksi internet yang juga menggunakan jaringan telepon kabel seperti Dial-Up, namun berbeda pada jenis modemnya. Modem ADSL bekerja pada frekuensi antara 34 kHz hingga 1104 kHz, sedangkan modem konvensional hanya bekerja di bawah 4 kHz. Dengan perbedaan frekuensi ini, ADSL memungkinkan pengiriman suara, data, hingga fax secara bersamaan. Prinsip koneksi ADSL sebenarnya sama dengan Dial-Up, hanya saja modem yang digunakan berbeda sehingga mampu memberikan fungsi lebih luas dan kecepatan yang lebih baik.
+</li>
+<li><strong>LAN (Local Area Network)</strong>: Menggunakan sistem server–client.</li>
+</ul>
+<div class="center-text">
+    <img src="konektivitas jaringan lan.jpeg" alt="Gambar di Tengah">
+</div>
+<p>LAN termasuk
+koneksi internet yang
+banyak dikenal saat
+ini. Sistem kerjanya
+ialah menggunakan
+satu komputer sebagai
+server yang terhubung
+dengan internet
+menggunakan kabel
+telepon atau antena
+melalui Internet
+Service Provider. Kemudian, komputer lainnya hanya perlu terkoneksi
+dengan server untuk bisa mengakses internet dengan memakai kartu
+LAN (LAN Card) dan kabel koaksial (UTP). Jaringan koneksi internet ini
+hanya mencakup wilayah yang sangat kecil. </p>
+
+    </section>
+    <section>
+        <h4>b. Konektivitas Internet pada Jaringan Nirkabel</h4>
+        <p>Konektivitas internet pada jaringan nirkabel merupakan jaringan internet
+yang tidak menggunakan kabel untuk menghubungkan satu perangkat
+dan perangkat lain. Jaringan nirkabel ini sering dipakai untuk jaringan
+komputer baik pada jarak yang dekat (beberapa meter, memakai alat/
+pemancar bluetooth) maupun pada jarak jauh (lewat satelit). Jaringan nirkabel
+biasanya menghubungkan satu sistem komputer dan sistem yang lain
+dengan menggunakan beberapa macam media transmisi tanpa kabel, seperti:
+gelombang radio, gelombang mikro, maupun cahaya inframerah. Berikut ini
+beberapa konektivitas pada jaringan nirkabel.</p>
+<li>a. GPRS (General Packet Radio Service)</li>
+<div class="center=text">
+    <img src="Ilustrasi Konektivitas Jaringan Nirkabel via GPRS.jpeg" alt="Gambar di Tengah">
+</div>
+<p>Jenis koneksi internet GPRS (General Packet Radio Service) menggunakan
+gelombang radio untuk komunikasi data dan suara. GPRS ini
+mempunyai kemampuan untuk mengirimkan data dan suara pada alat
+komunikasi bergerak. Sistem GPRS ini bisa dipakai untuk transfer data,
+berbentuk paket data
+yang terkait dengan
+pengiriman surel (surat
+elektronik) hingga
+berselancar di dunia
+maya. Layanan GPRS ini
+dipasang pada jenis
+ponsel dengan tipe GSM
+(Global Systems for Mobile
+Communications).
+</p>
+<li>b. Wif</li>
+<p>Wifi merupakan singkatan
+dari wireless fidelity yang
+merupakan sistem standar
+yang digunakan untuk
+terkoneksi dengan internet
+tanpa menggunakan kabel.
+Teknologi ini memakai
+frekuensi tinggi, berada
+pada spektrum 2,4 GHz. 
+Salah satu keunggulan jenis koneksi internet wifi ialah praktis karena tidak
+perlu memasang kabel jaringan. Namun, koneksi wifi memiliki jangkauan
+terbatas.</p>
+<li>c. Akses Satelit</li>
+<div class="center=text">
+    <img src="akses satelit.jpeg" alt="Gambar di Tengah">
+</div>
+<p>Jenis koneksi internet ini merupakan layanan internet yang memakai
+antena parabola
+sehingga kecepatan
+akses cukup tinggi.
+Namun, biasanya,
+jenis koneksi
+internet ini memang
+mahal terutama di
+Indonesia, meski
+sepadan dengan
+kecepatan aksesnya. </p>
+<h2>B. Komunikasi Data dengan Ponsel</h2>
+<p>Salah satu penggunaan jaringan internet dalam membantu kehidupan
+sehari-hari ialah sebagai sarana komunikasi baik melalui ponsel maupun
+melalui perangkat lainnya. Oleh sebab itu, kalian perlu memahami tentang
+mekanisme komunikasi data yang terjadi pada ponsel. Di lain pihak, ketika
+menggunakan internet, kalian juga perlu memperhatikan keamanan data
+yang dikirim melalui jaringan internet.</p>
+<h3>1. Jaringan Komunikasi pada Ponsel
+</h3>
+<p>Komunikasi data merupakan sebuah mekanisme pengiriman dan penerimaan
+data dari satu perangkat ke perangkat lain. Ketika kita menggunakan ponsel,
+baik untuk keperluan kirim pesan atau SMS (short message system), panggilan
+suara, maupun transfer dokumen, di dalamnya ada mekanisme komunikasi
+data yang terjadi antara ponsel pengirim dan ponsel penerima. Komunikasi
+data dalam ponsel dilakukan pada BTS (Base Transceiver Station) melalui
+beberapa cara dan media, yaitu dengan bluetooth, kabel data ataupun melalui
+jaringan komunikasi seperti CDMA (Code Division Multiple Access) atau GSM
+(Global System for Mobile). Namun, karena makin berkembangnya teknologi
+internet, saat ini, komunikasi data menggunakan ponsel bisa melalui jaringan
+internet antara lain seperti berikut.
+</p>
+<ul>
+    <li>a. GPRS (General Packet Radio Service) merupakan jaringan internet pada
+ponsel yang memiliki kecepatan antara 35-171 Kpbs. Dengan kecepatan ini,
+biasanya, hanya cukup untuk mengirim pesan yang tidak terlalu panjang.
+</li>
+    <li>b. EDGE (Enhanced Data rate for GSM Evolution) merupakan jaringan
+internet yang memiliki kecepatan lebih baik dibandingkan dengan GPRS
+karena memiliki kecepatan antara 120-384 Kbps.</li>
+    <li>c. 3G merupakan jaringan internet GPRS versi 3 yang menggunakan
+protokol transfer data United Mobile Telecommunication Technology sehingga
+menghasilkan kecepatan antara 384 Kbps – 2 Mbps.</li>
+    <li>d. Generasi berikutnya ialah HSPA (High Speed Packet Access) yang dikenal
+dengan nama 3.5G dan memiliki kecepatan 600 Kbps – 10 Mbps. Adapun
+HSDPA (High Speed Downlink Packet Access) atau dikenal dengan nama H+
+pada layar HP kita memiliki kecepatan yang stabil pada kisaran 7.2 Mbps.
+</li>
+<li>e. 4G/LTE (Long Term Evolution) merupakan generasi keempat dari GPRS
+yang memiliki kecepatan hingga 100 Mbps. Saat ini, hampir sebagian besar
+ponsel di pasaran sudah mendukung jaringan 4G/LTE.</li>
+</ul>
+</section>
+<section>
+    <div class="center-text">
+        <img src="sms.jpg" alt="Gambar di Tengah">
+    </div>
+    <p>Gambar di atas menunjukkan ilustrasi cara kerja komunikasi data melalui
+ponsel, misalnya pada proses ketika kita mengirimkan SMS (Short Message
+System). Ketika pengguna mengirim SMS, pesan dikirim ke MSC melalui
+jaringan seluler yang tersedia yang meliputi tower BTS yang sedang menghandle komunikasi pengguna, lalu ke BSC (Base Station Controller), kemudian
+sampai ke MSC (Mobile Switching Center). MSC kemudian meneruskan lagi
+SMS ke SMSC (Short Message Service Center) untuk disimpan. SMSC kemudian
+mengecek (lewat HLR – Home Location Register) untuk mengetahui apakah
+ponsel tujuan sedang aktif dan di manakah ponsel tujuan tersebut.</p>
+<p>Jika ponsel sedang tidak aktif, pesan tetap disimpan di SMSC itu
+sendiri, menunggu MSC memberitahukan bahwa ponsel sudah aktif
+kembali untuk kemudian SMS dikirim dengan batas maksimum waktu
+tunggu, yaitu validity period dari pesan SMS itu sendiri. Jika ponsel tujuan
+aktif, pesan disampaikan MSC lewat jaringan yang sedang menangani
+penerima (BSC dan BTS).
+</p>
+<p>Sebenarnya, di dalam kebanyakan ponsel dan model GSM/CDMA,
+terdapat suatu komponen wireless modem/engine yang dapat diperintah
+antara lain untuk mengirim suatu pesan SMS dengan protokol tertentu.
+Standar perintah tersebut dikenal sebagai AT-Command, sedangkan
+protokolnya disebut PDU (Protocol Data Unit). Melalui AT-Command dan
+PDU inilah, kita dapat membuat komputer/mikrokontroler mengirim/
+menerima SMS secara otomatis berdasarkan program yang kita buat.
+</p>
+<h3>2. Komunikasi Data dengan Ponsel</h3>
+<p>Ponsel/handphone/HP merupakan sebuah perangkat yang bekerja layaknya
+sebuah komputer karena bisa terhubung ke dalam sebuah jaringan lokal
+maupun jaringan internet. Oleh karena itu, sangat memungkinkan bagi kalian
+untuk saling melakukan komunikasi data antara satu ponsel dan ponsel
+lainnya. Ada beberapa jenis koneksi jaringan pada perangkat ponsel yang
+digunakan untuk komunikasi data. Sebagian besar koneksi tersebut lebih
+banyak menggunakan media tanpa kabel, yaitu antara lain koneksi dengan
+kabel data, koneksi dengan bluetooth, dan koneksi dengan wifi. </p>
+<ul>
+    <li><strong>Koneksi
+dengan Kabel</strong>: Koneksi dengan kabel pada
+ponsel biasanya dilakukan dengan
+menggunakan data cable (kabel
+data). Penggunaannya lebih banyak
+untuk menghubungkan ponsel
+dan perangkat komputer atau
+perangkat lainnya yang memiliki
+port USB. Karena menggunakan
+kabel, jangkauan koneksi ini sangat
+terbatas sesuai dengan panjang
+kabel data yang kalian miliki.</li>
+    <li><strong>Koneksi
+dengan
+Bluetooth</strong>: Bluetooth adalah komunikasi data
+tanpa kabel yang menggunakan
+gelombang elektromagnetik yang
+beroperasi pada frekuensi 2.45.
+Bluetooth memungkinkan pengguna
+perangkat seperti ponsel, printer,
+mouse, keyboard dan perangkat
+lainnya bisa terkoneksi tanpa kabel
+dengan jangkauan sekitar 1 meter. </li>
+    <li><strong>Koneksi
+dengan wifi</strong>: Koneksi data dengan jaringan
+tanpa kabel menggunakan
+teknologi wifi merupakan jenis
+koneksi yang banyak digemari.
+Alasan utamanya ialah karena
+bandwidth-nya yang besar dan
+hemat energi baterai. Kapasitas
+bandwidth maksimum sangat
+bergantung pada jarak dan
+data rate dari perangkat access
+point. Kekurangannya ialah
+jangkauannya yang tidak jauh,
+maksimum 100 meter, tetapi
+dengan bandwidth yang minimum
+(data rate 1Mbps).
+</li>
+</ul>
+</section>
+<section>
+    <h2>C. Proteksi Data Saat Berinternet</h2>
+    <div class="center-text">
+        <img src="Ilustrasi Jika Pesan di Media Sosial Tidak Dienkripsi.jpeg">
+    </div>
+    <p> Pesan yang dikirim oleh Budi
+berpotensi diketahui oleh orang lain sehingga kerahasiaan data jadi tidak
+terproteksi dengan baik. Inilah pentingnya enkripsi data ketika kalian
+terkoneksi dengan jaringan internet. Kalian harus memastikan bahwa aplikasi
+messenger yang kalian gunakan memiliki fitur enkripsi supaya data yang
+kalian kirimkan aman terproteksi dan tidak bisa diketahui orang lain.</p>
+<p>
+ke dalam situs web tersebut dengan memasukan nama pengguna dan kata
+sandi, apakah kalian tahu bahwa data yang kalian masukkan aman dan
+tidak mungkin bisa diketahui orang lain? Untuk memastikan ini, kalian
+harus paham bahwa situs web yang kalian kunjungi itu aman atau tidak.
+Cara paling mudah untuk mengetahui situs web yang kalian kunjungi itu
+aman karena melakukan proteksi pada data yang kalian input ialah dengan
+melihat di alamatnya apakah didahului dengan HTTPS dan ada icon seperti
+kunci di sebelah alamat situs web, seperti ditunjukkan pada gambar di atas.
+Apakah kalian tahu bedanya http dan https? Hypertext Transfer Protocol
+(HTTP) adalah protokol yang mengatur komunikasi antara client (komputer
+pengguna) dan server (komputer yang menyimpan data yang diakses melalui
+situs web). Pada umumnya, cara komunikasi antara client dan server ialah client
+melakukan request ke server, kemudian server mengirimkan respons terhadap
+situs web. Respons yang dimaksud dapat berupa file yang akan ditampilkan
+di browser yang kalian gunakan. Semua kegiatan tersebut diatur oleh suatu  protokol HTTP. Sayangnya, HTTP tidak menjamin keamanan data sehingga
+ada potensi data bisa dimanipulasi. Adapun HTTPS adalah versi HTTP yang
+lebih aman yang mampu menjaga keamanan data yang sedang diproses.</p>
+<p>Teknologi enkripsi berbasis https dinamakan SSL yang merupakan
+singkatan dari Secure Sockets Layer. SSL adalah suatu teknologi keamanan
+standar global yang memungkinkan komunikasi terenkripsi antara peramban
+web dan server web. SSL banyak digunakan pada berbagai situs web untuk
+mengurangi risiko informasi yang bersifat sensitif (misalnya, nomor
+kartu kredit, nama pengguna, kata sandi, email, dll) dari pencurian atau
+perusakan oleh peretas dan pencuri identitas. Sertifikat SSL berfungsi untuk
+mengotentikasi identitas situs web untuk menjamin pengunjung bahwa situs
+web tersebut bukan merupakan situs web palsu sekaligus mengenkripsi data
+yang sedang dikirim. </p>
+</section>
+    </main>
+     <footer>
+    © 2025 Media Pembelajaran Informatika | Dibuat oleh Amanda Ayudhia
+  </footer>
+</Body>
+</html>
