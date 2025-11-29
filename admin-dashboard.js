@@ -73,52 +73,159 @@ function resetSemuaAkun() {
 // ===================================================================
 //                          KELOLA SOAL KUIS
 // ===================================================================
-let tempSoal = []; // soal yang ditambahkan sebelum upload
+let tempSoal = []; // array sementara
 
-function muatSoal() {
+// Toggle PG/Esai
+function togglePgOptions() {
+    const jenis = document.getElementById("jenisSoal").value;
+    document.getElementById("pgOptions").style.display = (jenis === "pg") ? "block" : "none";
+}
+document.getElementById("jenisSoal").addEventListener("change", togglePgOptions);
+togglePgOptions();
+
+// Tampilkan tabel sementara (id="soalList")
+function tampilkanTempSoal() {
     const tabel = document.getElementById("soalList");
     tabel.innerHTML = "";
 
+    tempSoal.forEach((s, i) => {
+        tabel.innerHTML += `
+        <tr>
+            <td>${i + 1}. ${s.soal}</td>
+            <td>${s.jenis}</td>
+            <td>${s.bab}</td>
+            <td>${s.kelas}</td>
+            <td>${s.semester}</td>
+            <td>${s.kunci || "-"}</td>
+            <td>${s.target}</td>
+            <td><button onclick="hapusTempSoal(${i})">❌ Hapus</button></td>
+        </tr>`;
+    });
+
+    document.getElementById("jumlah-soal").innerText = tempSoal.length > 0
+        ? `Jumlah soal sementara: ${tempSoal.length}`
+        : "Belum ada soal ditambahkan.";
+}
+
+// Tambah soal ke temp
+function tambahSoal() {
+    const soalInput = document.getElementById("soalText").value;
+    const jenisInput = document.getElementById("jenisSoal").value;
+    const babInput = document.getElementById("babSoal").value;
+    const kelasInput = document.getElementById("kelasSoal").value;
+    const semesterInput = document.getElementById("semesterSoal").value;
+    const targetInput = document.getElementById("targetKuis").value;
+    const kunciInput = document.getElementById("jawabanBenar")?.value || "-";
+
+    let soalBaru = {
+        soal: soalInput,
+        jenis: jenisInput,
+        bab: babInput,
+        kelas: kelasInput,
+        semester: semesterInput,
+        target: targetInput,
+        kunci: kunciInput
+    };
+
+    if (jenisInput === "pg") {
+        soalBaru.opsi = {
+            A: document.getElementById("optionA").value,
+            B: document.getElementById("optionB").value,
+            C: document.getElementById("optionC").value,
+            D: document.getElementById("optionD").value,
+            E: document.getElementById("optionE").value
+        };
+    }
+
+    tempSoal.push(soalBaru);       // masuk array sementara
+    tampilkanTempSoal();           // update tabel sementara
+    document.getElementById("formSoal").reset();
+    togglePgOptions();
+}
+
+// Hapus soal sementara
+function hapusTempSoal(index) {
+    tempSoal.splice(index, 1);
+    tampilkanTempSoal();
+}
+
+// Upload semua soal ke Firebase
+function uploadSemuaSoal() {
+    if (tempSoal.length === 0) {
+        alert("Belum ada soal ditambahkan!");
+        return;
+    }
+
+    tempSoal.forEach(soal => firebase.database().ref("soalKuis").push(soal));
+    alert("Semua soal berhasil diupload!");
+    tempSoal = [];
+    tampilkanTempSoal();
+    muatSoalFirebase(); // refresh daftar soal Firebase
+}
+
+// Reset semua soal (Firebase + sementara)
+function resetSemuaSoal() {
+    if (!confirm("Yakin ingin menghapus semua soal?")) return;
+
+    firebase.database().ref("soalKuis").remove()
+        .then(() => {
+            tempSoal = [];
+            tampilkanTempSoal();
+            muatSoalFirebase();
+            alert("Semua soal berhasil dihapus!");
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Gagal menghapus semua soal!");
+        });
+}
+
+// Tampilkan soal Firebase
+function muatSoalFirebase() {
+    const tabelFirebase = document.getElementById("soalListFirebase");
+    if (!tabelFirebase) return;
+    tabelFirebase.innerHTML = "";
+
     firebase.database().ref("soalKuis").once("value", snap => {
+        let no = 1;
         snap.forEach(child => {
             const s = child.val();
-
-            tabel.innerHTML += `
-                <tr>
-                    <td>${s.soal}</td>
-                    <td>${s.jenis}</td>
-                    <td>${s.bab}</td>
-                    <td>${s.kelas}</td>
-                    <td>${s.semester}</td>
-                    <td>${s.kunci || "-"}</td>
-                    <td>${s.target}</td>
-                    <td>
-                        <button onclick="hapusSoal('${child.key}')">❌ Hapus</button>
-                    </td>
-                </tr>
-            `;
+            tabelFirebase.innerHTML += `
+            <tr>
+                <td>${no++}. ${s.soal}</td>
+                <td>${s.jenis}</td>
+                <td>${s.bab}</td>
+                <td>${s.kelas}</td>
+                <td>${s.semester}</td>
+                <td>${s.kunci || "-"}</td>
+                <td>${s.target}</td>
+                <td><button onclick="hapusSoal('${child.key}')">❌ Hapus</button></td>
+            </tr>`;
         });
     });
 }
 
+// Hapus soal Firebase
 function hapusSoal(id) {
     if (!confirm("Hapus soal ini?")) return;
-
-    firebase.database().ref("soalKuis/" + id).remove().then(() => {
-        alert("Soal berhasil dihapus!");
-        muatSoal();
-    });
+    firebase.database().ref("soalKuis/" + id).remove().then(() => muatSoalFirebase());
 }
 
-// ===== RESET SEMUA SOAL =====
-function resetSemuaSoal() {
-    if (!confirm("Yakin ingin reset semua soal kuis?")) return;
+// Tangani form submit
+document.getElementById("formSoal").addEventListener("submit", e => {
+    e.preventDefault();
+    tambahSoal();
+});
 
-    firebase.database().ref("soalKuis").remove().then(() => {
-        alert("Semua soal berhasil dihapus!");
-        muatSoal();
-    });
-}
+// Jalankan pertama kali
+tampilkanTempSoal();
+muatSoalFirebase();
+
+
+
+
+
+
 
 // ===================================================================
 //                          KELOLA MATERI
