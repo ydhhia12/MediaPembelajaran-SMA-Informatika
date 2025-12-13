@@ -1,5 +1,5 @@
 // ===============================
-//  NAVIGASI HALAMAN
+// NAVIGASI HALAMAN
 // ===============================
 function showSection(id) {
     document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
@@ -7,7 +7,7 @@ function showSection(id) {
 }
 
 // ===============================
-//  LOGOUT
+// LOGOUT
 // ===============================
 function logout() {
     localStorage.removeItem("loginAdmin");
@@ -16,18 +16,18 @@ function logout() {
 }
 
 // ===============================
-//  LOAD DATA OTOMATIS SAAT MASUK
+// LOAD DATA OTOMATIS
 // ===============================
 window.onload = () => {
     muatAkun();
-    muatSoal();
+    muatSoalFirebase();
     muatMateri();
     muatNilai();
     muatEsai();
 };
 
 // ===================================================================
-//                          KELOLA AKUN SISWA
+// AKUN SISWA
 // ===================================================================
 function muatAkun() {
     const tabel = document.getElementById("akunlist");
@@ -35,244 +35,274 @@ function muatAkun() {
 
     firebase.database().ref("akunSiswa").once("value", snap => {
         snap.forEach(child => {
-            const data = child.val();
-
+            const d = child.val();
             tabel.innerHTML += `
                 <tr>
-                    <td>${data.username}</td>
-                    <td>${data.namaLengkap}</td>
-                    <td>${data.kelas}</td>
-                    <td>
-                        <button onclick="hapusAkun('${child.key}')">❌ Hapus</button>
-                    </td>
-                </tr>
-            `;
+                    <td>${d.username}</td>
+                    <td>${d.namaLengkap}</td>
+                    <td>${d.kelas}</td>
+                    <td><button onclick="hapusAkun('${child.key}')">❌</button></td>
+                </tr>`;
         });
     });
 }
 
-function hapusAkun(username) {
+function hapusAkun(id) {
     if (!confirm("Hapus akun ini?")) return;
-
-    firebase.database().ref("akunSiswa/" + username).remove().then(() => {
-        alert("Akun dihapus!");
-        muatAkun();
-    });
+    firebase.database().ref("akunSiswa/" + id).remove().then(muatAkun);
 }
 
-// ===== RESET SEMUA AKUN =====
 function resetSemuaAkun() {
-    if (!confirm("Yakin ingin reset semua akun siswa?")) return;
-
+    if (!confirm("⚠ Hapus SEMUA akun siswa?")) return;
     firebase.database().ref("akunSiswa").remove().then(() => {
-        alert("Semua akun berhasil dihapus!");
+        alert("🔥 Semua akun dihapus");
         muatAkun();
     });
 }
 
 // ===================================================================
-//                          KELOLA SOAL KUIS
+// KELOLA SOAL
 // ===================================================================
-let tempSoal = []; // array sementara
+let tempSoal = [];
 
-// Toggle PG/Esai
 function togglePgOptions() {
     const jenis = document.getElementById("jenisSoal").value;
-    document.getElementById("pgOptions").style.display = (jenis === "pg") ? "block" : "none";
+    const pg = document.getElementById("pgOptions");
+
+    if (jenis === "pg") {
+        pg.style.display = "block";
+    } else {
+        pg.style.display = "none";
+        ["optionA","optionB","optionC","optionD","optionE","jawabanBenar"]
+            .forEach(id => document.getElementById(id).value = "");
+    }
 }
+
 document.getElementById("jenisSoal").addEventListener("change", togglePgOptions);
 togglePgOptions();
 
-// Tampilkan tabel sementara (id="soalList")
+document.getElementById("formSoal").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const jenis = jenisSoal.value;
+    let soal = {
+        soal: soalText.value,
+        jenis,
+        bab: babSoal.value,
+        kelas: kelasSoal.value,
+        semester: semesterSoal.value,
+        target: targetKuis.value
+    };
+
+    if (jenis === "pg") {
+        soal.opsi = {
+            A: optionA.value,
+            B: optionB.value,
+            C: optionC.value,
+            D: optionD.value,
+            E: optionE.value
+        };
+        soal.kunci = jawabanBenar.value;
+    } else {
+        soal.kunci = "-";
+    }
+
+    tempSoal.push(soal);
+    tampilkanTempSoal();
+    formSoal.reset();
+    togglePgOptions();
+});
+
 function tampilkanTempSoal() {
     const tabel = document.getElementById("soalList");
     tabel.innerHTML = "";
 
     tempSoal.forEach((s, i) => {
         tabel.innerHTML += `
-        <tr>
-            <td>${i + 1}. ${s.soal}</td>
-            <td>${s.jenis}</td>
-            <td>${s.bab}</td>
-            <td>${s.kelas}</td>
-            <td>${s.semester}</td>
-            <td>${s.kunci || "-"}</td>
-            <td>${s.target}</td>
-            <td><button onclick="hapusTempSoal(${i})">❌ Hapus</button></td>
-        </tr>`;
-    });
-
-    document.getElementById("jumlah-soal").innerText = tempSoal.length > 0
-        ? `Jumlah soal sementara: ${tempSoal.length}`
-        : "Belum ada soal ditambahkan.";
-}
-
-// Tambah soal ke temp
-function tambahSoal() {
-    const soalInput = document.getElementById("soalText").value;
-    const jenisInput = document.getElementById("jenisSoal").value;
-    const babInput = document.getElementById("babSoal").value;
-    const kelasInput = document.getElementById("kelasSoal").value;
-    const semesterInput = document.getElementById("semesterSoal").value;
-    const targetInput = document.getElementById("targetKuis").value;
-    const kunciInput = document.getElementById("jawabanBenar")?.value || "-";
-
-    let soalBaru = {
-        soal: soalInput,
-        jenis: jenisInput,
-        bab: babInput,
-        kelas: kelasInput,
-        semester: semesterInput,
-        target: targetInput,
-        kunci: kunciInput
-    };
-
-    if (jenisInput === "pg") {
-        soalBaru.opsi = {
-            A: document.getElementById("optionA").value,
-            B: document.getElementById("optionB").value,
-            C: document.getElementById("optionC").value,
-            D: document.getElementById("optionD").value,
-            E: document.getElementById("optionE").value
-        };
-    }
-
-    tempSoal.push(soalBaru);       // masuk array sementara
-    tampilkanTempSoal();           // update tabel sementara
-    document.getElementById("formSoal").reset();
-    togglePgOptions();
-}
-
-// Hapus soal sementara
-function hapusTempSoal(index) {
-    tempSoal.splice(index, 1);
-    tampilkanTempSoal();
-}
-
-// Upload semua soal ke Firebase
-function uploadSemuaSoal() {
-    if (tempSoal.length === 0) {
-        alert("Belum ada soal ditambahkan!");
-        return;
-    }
-
-    tempSoal.forEach(soal => firebase.database().ref("soalKuis").push(soal));
-    alert("Semua soal berhasil diupload!");
-    tempSoal = [];
-    tampilkanTempSoal();
-    muatSoalFirebase(); // refresh daftar soal Firebase
-}
-
-// Reset semua soal (Firebase + sementara)
-function resetSemuaSoal() {
-    if (!confirm("Yakin ingin menghapus semua soal?")) return;
-
-    firebase.database().ref("soalKuis").remove()
-        .then(() => {
-            tempSoal = [];
-            tampilkanTempSoal();
-            muatSoalFirebase();
-            alert("Semua soal berhasil dihapus!");
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Gagal menghapus semua soal!");
-        });
-}
-
-// Tampilkan soal Firebase
-function muatSoalFirebase() {
-    const tabelFirebase = document.getElementById("soalListFirebase");
-    if (!tabelFirebase) return;
-    tabelFirebase.innerHTML = "";
-
-    firebase.database().ref("soalKuis").once("value", snap => {
-        let no = 1;
-        snap.forEach(child => {
-            const s = child.val();
-            tabelFirebase.innerHTML += `
             <tr>
-                <td>${no++}. ${s.soal}</td>
+                <td>${s.soal}</td>
                 <td>${s.jenis}</td>
                 <td>${s.bab}</td>
                 <td>${s.kelas}</td>
                 <td>${s.semester}</td>
-                <td>${s.kunci || "-"}</td>
+                <td>${s.jenis === "pg" ? s.kunci : "-"}</td>
                 <td>${s.target}</td>
-                <td><button onclick="hapusSoal('${child.key}')">❌ Hapus</button></td>
+                <td><button onclick="hapusTempSoal(${i})">❌</button></td>
             </tr>`;
+    });
+
+    document.getElementById("jumlah-soal").innerText =
+        tempSoal.length ? `Jumlah soal sementara: ${tempSoal.length}` : "Belum ada soal ditambahkan.";
+}
+
+function hapusTempSoal(i) {
+    tempSoal.splice(i, 1);
+    tampilkanTempSoal();
+}
+
+function uploadSemuaSoal() {
+    if (tempSoal.length === 0) return alert("Belum ada soal!");
+
+    const ref = firebase.database().ref("soalKuis");
+    tempSoal.forEach(s => ref.push(s));
+
+    alert("✅ Semua soal diupload");
+    tempSoal = [];
+    tampilkanTempSoal();
+    muatSoalFirebase();
+}
+
+function muatSoalFirebase() {
+    const tabel = document.getElementById("soalListFirebase");
+    tabel.innerHTML = "";
+    let no = 1;
+
+    firebase.database().ref("soalKuis").once("value", snap => {
+        snap.forEach(child => {
+            const s = child.val();
+            tabel.innerHTML += `
+                <tr>
+                    <td>${no++}. ${s.soal}</td>
+                    <td>${s.jenis}</td>
+                    <td>${s.bab}</td>
+                    <td>${s.kelas}</td>
+                    <td>${s.semester}</td>
+                    <td>${s.kunci || "-"}</td>
+                    <td>${s.target}</td>
+                    <td><button onclick="hapusSoal('${child.key}')">❌</button></td>
+                </tr>`;
         });
     });
 }
 
-// Hapus soal Firebase
 function hapusSoal(id) {
     if (!confirm("Hapus soal ini?")) return;
-    firebase.database().ref("soalKuis/" + id).remove().then(() => muatSoalFirebase());
+    firebase.database().ref("soalKuis/" + id).remove().then(muatSoalFirebase);
 }
 
-// Tangani form submit
-document.getElementById("formSoal").addEventListener("submit", e => {
-    e.preventDefault();
-    tambahSoal();
-});
+function resetSemuaSoal() {
+    if (!confirm("⚠ Hapus SEMUA soal?")) return;
+    firebase.database().ref("soalKuis").remove().then(() => {
+        tempSoal = [];
+        tampilkanTempSoal();
+        muatSoalFirebase();
+        alert("🔥 Semua soal dihapus");
+    });
+}
 
-// Jalankan pertama kali
-tampilkanTempSoal();
-muatSoalFirebase();
+// ===============================
+// MATERI
+// ===============================
 
+// 🔥 Render konten (Youtube / teks)
+function renderKonten(konten) {
+    if (!konten) return "-";
 
+    return konten.replace(
+        /(https?:\/\/(?:www\.)?youtube\.com\/(?:watch\?v=|live\/)|https?:\/\/youtu\.be\/)([A-Za-z0-9_-]{11})[^\s]*/g,
+        `<iframe width="300" height="170"
+            src="https://www.youtube.com/embed/$2"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>`
+    );
+}
 
-
-
-
-
-// ===================================================================
-//                          KELOLA MATERI
-// ===================================================================
+// ================== Muat Materi ==================
 function muatMateri() {
     const tabel = document.getElementById("materiList");
     tabel.innerHTML = "";
 
     firebase.database().ref("materi").once("value", snap => {
-        snap.forEach(child => {
-            child.forEach(m => {
-                const d = m.val();
+        if (!snap.exists()) {
+            tabel.innerHTML = `<tr><td colspan="5" style="text-align:center;">Belum ada materi</td></tr>`;
+            return;
+        }
 
-                tabel.innerHTML += `
-                    <tr>
-                        <td>${d.judul}</td>
-                        <td>${d.konten}</td>
-                        <td>${d.kelas}</td>
-                        <td>${d.semester}</td>
-                        <td><button onclick="hapusMateri('${child.key}', '${m.key}')">❌</button></td>
-                    </tr>
-                `;
+        snap.forEach(kelasSnap => {
+            const kelasKey = kelasSnap.key; // "10", "11", "12"
+
+            kelasSnap.forEach(semesterSnap => {
+                const semesterKey = semesterSnap.key; // "1", "2"
+
+                semesterSnap.forEach(materiSnap => {
+                    const d = materiSnap.val();
+                    tabel.innerHTML += `
+                        <tr>
+                            <td>${d.judul || "-"}</td>
+                            <td>${renderKonten(d.konten)}</td>
+                            <td>${d.kelas || kelasKey}</td>
+                            <td>${d.semester || semesterKey}</td>
+                            <td>
+                                <button onclick="hapusMateri('${kelasKey}','${semesterKey}','${materiSnap.key}')">❌</button>
+                            </td>
+                        </tr>
+                    `;
+                });
             });
         });
     });
 }
 
-function hapusMateri(kelas, id) {
+// ================== Tambah Materi ==================
+document.getElementById("formMateri").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const judul = document.getElementById("judulMateri").value;
+    const konten = document.getElementById("kontenMateri").value;
+    const kelas = document.getElementById("kelasMateri").value;
+    const semester = document.getElementById("semesterMateri").value;
+
+    if (!judul || !konten || !kelas || !semester) {
+        alert("Isi semua field dulu!");
+        return;
+    }
+
+    firebase.database()
+        .ref(`materi/${kelas}/${semester}`)
+        .push({
+            judul: judul,
+            konten: konten,
+            kelas: kelas,
+            semester: semester
+        })
+        .then(() => {
+            alert("Materi berhasil ditambahkan!");
+            muatMateri();
+            document.getElementById("formMateri").reset();
+        });
+});
+
+// ================== Hapus Materi ==================
+function hapusMateri(kelas, semester, id) {
     if (!confirm("Hapus materi ini?")) return;
 
-    firebase.database().ref("materi/" + kelas + "/" + id).remove().then(() => {
-        alert("Materi dihapus!");
-        muatMateri();
-    });
+    firebase.database()
+      .ref(`materi/${kelas}/${semester}/${id}`)
+      .remove()
+      .then(() => {
+          alert("Materi dihapus");
+          muatMateri();
+      });
 }
 
+// ================== Reset Semua Materi ==================
 function resetSemuaMateri() {
-    if (!confirm("Reset semua materi?")) return;
+    if (!confirm("⚠ Hapus SEMUA materi?")) return;
 
-    firebase.database().ref("materi").remove().then(() => {
-        alert("Semua materi direset!");
-        muatMateri();
-    });
+    firebase.database()
+      .ref("materi")
+      .remove()
+      .then(() => {
+          alert("🔥 Semua materi dihapus");
+          muatMateri();
+      });
 }
+
+// ================== Inisialisasi ==================
+muatMateri();
 
 // ===================================================================
-//                          REKAP NILAI
+// NILAI
 // ===================================================================
 function muatNilai() {
     const tabel = document.getElementById("nilaiList");
@@ -281,7 +311,6 @@ function muatNilai() {
     firebase.database().ref("rekapNilai").once("value", snap => {
         snap.forEach(child => {
             const n = child.val();
-
             tabel.innerHTML += `
                 <tr>
                     <td>${n.username}</td>
@@ -289,13 +318,12 @@ function muatNilai() {
                     <td>${n.kelas}</td>
                     <td>${n.bab}</td>
                     <td>${n.semester}</td>
-                    <td>${n.jenis}</td>
+                    <td>${n.jenisSoal}</td>
                     <td>${n.nilai}</td>
                     <td>
                         <button onclick="hapusNilai('${child.key}')">❌</button>
                     </td>
-                </tr>
-            `;
+                </tr>`;
         });
     });
 }
@@ -303,23 +331,29 @@ function muatNilai() {
 function hapusNilai(id) {
     if (!confirm("Hapus nilai ini?")) return;
 
-    firebase.database().ref("rekapNilai/" + id).remove().then(() => {
-        alert("Nilai dihapus!");
-        muatNilai();
-    });
+    firebase.database()
+        .ref("rekapNilai/" + id)
+        .remove()
+        .then(muatNilai);
 }
 
+// ===============================
+//  RESET SEMUA NILAI
+// ===============================
 function resetSemuaNilai() {
-    if (!confirm("Reset semua nilai siswa?")) return;
+    if (!confirm("⚠ Hapus SEMUA rekap nilai siswa?")) return;
 
-    firebase.database().ref("rekapNilai").remove().then(() => {
-        alert("Semua nilai berhasil dihapus!");
-        muatNilai();
-    });
+    firebase.database()
+        .ref("rekapNilai")
+        .remove()
+        .then(() => {
+            alert("🔥 Semua rekap nilai dihapus");
+            muatNilai();
+        });
 }
 
 // ===================================================================
-//                          JAWABAN ESAI
+// ESAI
 // ===================================================================
 function muatEsai() {
     const tabel = document.getElementById("esaiList");
@@ -328,46 +362,45 @@ function muatEsai() {
     firebase.database().ref("jawabanEsai").once("value", snap => {
         snap.forEach(child => {
             const d = child.val();
+            const user = child.key;
 
             tabel.innerHTML += `
                 <tr>
-                    <td>${child.key}</td>
-                    <td>${d.nama}</td>
+                    <td>${user}</td>
+                    <td>${d.nama || "-"}</td>
                     <td>${d.soal1 || "-"}</td>
                     <td>${d.soal2 || "-"}</td>
                     <td>${d.soal3 || "-"}</td>
                     <td>${d.soal4 || "-"}</td>
                     <td>${d.soal5 || "-"}</td>
-                    <td>${d.nilai1 || "-"}</td>
-                    <td>${d.nilai2 || "-"}</td>
-                    <td>${d.nilai3 || "-"}</td>
-                    <td>${d.nilai4 || "-"}</td>
-                    <td>${d.nilai5 || "-"}</td>
-                    <td><button onclick="hapusEsai('${child.key}')">❌</button></td>
-                </tr>
-            `;
+                    ${[1,2,3,4,5].map(i => `
+                        <td>
+                            <input type="number" min="0" max="100"
+                                value="${d['nilai'+i] ?? ""}"
+                                onchange="simpanNilaiEsai('${user}',${i},this.value)">
+                        </td>`).join("")}
+                    <td><button onclick="hapusEsai('${user}')">❌</button></td>
+                </tr>`;
         });
     });
 }
 
-function hapusEsai(username) {
-    if (!confirm("Hapus jawaban esai ini?")) return;
+function simpanNilaiEsai(username, nomor, nilai) {
+    if (nilai === "") return;
+    firebase.database()
+        .ref(`jawabanEsai/${username}`)
+        .update({ [`nilai${nomor}`]: Number(nilai) });
+}
 
-    firebase.database().ref("jawabanEsai/" + username).remove().then(() => {
-        alert("Jawaban esai dihapus!");
-        muatEsai();
-    });
+function hapusEsai(id) {
+    if (!confirm("Hapus esai ini?")) return;
+    firebase.database().ref("jawabanEsai/" + id).remove().then(muatEsai);
 }
 
 function resetSemuaEsai() {
-    if (!confirm("Reset semua jawaban esai?")) return;
-
+    if (!confirm("⚠ Hapus SEMUA esai?")) return;
     firebase.database().ref("jawabanEsai").remove().then(() => {
-        alert("Semua esai berhasil dihapus!");
+        alert("🔥 Semua esai dihapus");
         muatEsai();
     });
 }
-
-// ===================================================================
-//                          SELESAI
-// ===================================================================

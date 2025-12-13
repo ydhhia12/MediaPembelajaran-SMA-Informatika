@@ -1,4 +1,4 @@
-// ====== KUIS 10 FULL ======
+// ====== KUIS 10 FULL (FIXED) ======
 document.addEventListener("DOMContentLoaded", () => {
   const formNama = document.getElementById("formNama");
   const namaSection = document.getElementById("formNamaSection");
@@ -10,113 +10,140 @@ document.addEventListener("DOMContentLoaded", () => {
   let namaSiswa = "";
   let soalList = [];
 
-  // Mulai kuis setelah input nama
-  formNama.addEventListener("submit", (e) => {
+  // ================= MULAI KUIS =================
+  formNama.addEventListener("submit", e => {
     e.preventDefault();
     namaSiswa = document.getElementById("namaSiswa").value.trim();
-    if(!namaSiswa) return alert("Isi nama kamu dulu ya!");
+    if (!namaSiswa) return alert("Isi nama kamu dulu ya!");
 
-    // Sembunyikan form nama dan tampilkan form kuis
     namaSection.style.display = "none";
     formKuis.style.display = "block";
-
-    // Load soal dari Firebase
     loadSoal();
   });
 
+  // ================= LOAD SOAL =================
   function loadSoal() {
     daftarSoal.innerHTML = "";
     soalList = [];
 
-    firebase.database().ref("soalKuis").orderByChild("target").equalTo("kuis10").once("value", snapshot => {
-      if(!snapshot.exists()) {
-        daftarSoal.innerHTML = "<p>Belum ada soal untuk kuis ini.</p>";
-        return;
-      }
+    firebase.database()
+      .ref("soalKuis")
+      .orderByChild("target")
+      .equalTo("kuis10")
+      .once("value", snap => {
 
-      snapshot.forEach(soalSnap => {
-        const soal = soalSnap.val();
-        const key = soalSnap.key;
-        soalList.push({ key, ...soal });
-
-        const soalDiv = document.createElement("div");
-        soalDiv.className = "soal";
-
-        let jawabanHtml = "";
-        if(soal.jenis === "pg") {
-          for(const opsi in soal.pg) {
-            jawabanHtml += `
-              <label>
-                <input type="radio" name="${key}" value="${opsi}"> ${opsi}. ${soal.pg[opsi]}
-              </label>
-            `;
-          }
-        } else {
-          jawabanHtml = `<textarea name="${key}" placeholder="Tulis jawabanmu di sini..."></textarea>`;
+        if (!snap.exists()) {
+          daftarSoal.innerHTML = "<p>Belum ada soal.</p>";
+          return;
         }
 
-        soalDiv.innerHTML = `
-          <h3>${soal.soalText}</h3>
-          <p>Bab: ${soal.bab}</p>
-          ${jawabanHtml}
-        `;
+        snap.forEach(child => {
+          const soal = child.val();
+          const key = child.key;
+          soalList.push({ key, ...soal });
 
-        daftarSoal.appendChild(soalDiv);
+          let jawabanHTML = "";
+
+          // ===== PILIHAN GANDA =====
+          if (soal.jenis === "pg") {
+            for (const opsi in soal.opsi) {
+              jawabanHTML += `
+                <label>
+                  <input type="radio" name="${key}" value="${opsi}">
+                  ${opsi}. ${soal.opsi[opsi]}
+                </label><br>
+              `;
+            }
+          }
+
+          // ===== ESAI =====
+          else {
+            jawabanHTML = `
+              <textarea name="${key}" rows="3"
+                placeholder="Tulis jawabanmu di sini..."></textarea>
+            `;
+          }
+
+          const soalDiv = document.createElement("div");
+          soalDiv.className = "soal";
+          soalDiv.innerHTML = `
+            <h3>${soal.soal}</h3>
+            <p><b>Bab:</b> ${soal.bab}</p>
+            ${jawabanHTML}
+          `;
+
+          daftarSoal.appendChild(soalDiv);
+        });
+
+        submitKuis.style.display = "block";
       });
-
-      submitKuis.style.display = "block";
-    });
   }
 
-  // Submit jawaban
+  // ================= SUBMIT KUIS =================
   submitKuis.addEventListener("click", () => {
-    if(!namaSiswa) return alert("Isi nama kamu dulu ya!");
+    if (!namaSiswa) return alert("Isi nama dulu!");
 
-    const totalSoal = soalList.length;
     let benar = 0;
+    let totalPG = 0;
 
     soalList.forEach(soal => {
-      const jawaban = soal.jenis === "pg"
-        ? document.querySelector(`input[name="${soal.key}"]:checked`)?.value || ""
-        : document.querySelector(`textarea[name="${soal.key}"]`)?.value.trim() || "";
+      let jawaban = "";
 
-      // Cek jawaban PG
-      if(soal.jenis === "pg" && jawaban.toUpperCase() === soal.jawabanBenar.toUpperCase()) {
-        benar += 1;
+      if (soal.jenis === "pg") {
+        totalPG++;
+        jawaban =
+          document.querySelector(`input[name="${soal.key}"]:checked`)
+            ?.value || "";
+
+        if (jawaban.toUpperCase() === soal.kunci.toUpperCase()) {
+          benar++;
+        }
       }
 
-      // Simpan jawaban esai ke Firebase
-      if(soal.jenis === "esai" && jawaban !== "") {
-        const usernameKey = namaSiswa.toLowerCase().replace(/\s+/g,"_");
-        firebase.database().ref(`jawabanEsai/${usernameKey}/${soal.key}`).set({
-          jawaban,
-          nilai: null,
-          tanggal: new Date().toLocaleString()
-        });
+      // ===== SIMPAN ESAI =====
+      if (soal.jenis === "esai") {
+        jawaban =
+          document.querySelector(`textarea[name="${soal.key}"]`)
+            ?.value.trim() || "";
+
+        if (jawaban) {
+          const userKey = namaSiswa.toLowerCase().replace(/\s+/g, "_");
+          firebase.database()
+            .ref(`jawabanEsai/${userKey}/${soal.key}`)
+            .set({
+              nama: namaSiswa,
+              soal: soal.soal,
+              jawaban,
+              waktu: Date.now()
+            });
+        }
       }
     });
 
-    // Hitung skor PG dalam persen
-    const totalPG = soalList.filter(s => s.jenis === "pg").length;
-    const skorPersen = totalPG > 0 ? Math.round((benar / totalPG) * 100) : 0;
+    const skor = totalPG > 0 ? Math.round((benar / totalPG) * 100) : 0;
 
     hasilDiv.style.display = "block";
-    hasilDiv.innerHTML = `Hai ${namaSiswa}, skor PG kamu: ${skorPersen} / 100. Jawaban esai tersimpan untuk dinilai guru.`;
+    hasilDiv.innerHTML = `
+      Hai <b>${namaSiswa}</b> 👋<br>
+      Skor PG kamu: <b>${skor}</b>/100<br>
+      Jawaban esai sudah dikirim ke guru.
+    `;
 
-    // Simpan skor PG ke rekapNilai
+    // ===== SIMPAN NILAI =====
     firebase.database().ref("rekapNilai").push({
-      username: namaSiswa.toLowerCase().replace(/\s+/g,"_"),
+      username: namaSiswa.toLowerCase().replace(/\s+/g, "_"),
       nama: namaSiswa,
       kelas: "10",
       bab: "Kuis 10",
       semester: "1/2",
-      jenisSoal: "PG",
-      nilai: skorPersen,
+      jenis: "PG",
+      nilai: skor,
       totalPG,
       timestamp: Date.now()
     });
 
-    // Redirect otomatis ke beranda setelah 5 detik
-    setTimeout(() => window.location.href="kelas10.html", 2000);
+    setTimeout(() => {
+      window.location.href = "kelas10.html";
+    }, 2000);
   });
 });

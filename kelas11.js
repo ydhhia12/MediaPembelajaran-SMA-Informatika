@@ -1,71 +1,46 @@
-// ====== KELAS 11 JS FULL ======
 document.addEventListener("DOMContentLoaded", () => {
-  // ====== MATERI TAMBAHAN ======
   const daftarMateriDiv = document.getElementById("daftarMateriTambahan");
+  if (!daftarMateriDiv) return; // safety check kalau element nggak ada
 
-  function convertYoutubeLinkToIframe(link) {
-    let videoId = "";
-
-    if(link.includes("youtube.com/watch")) {
-      const urlParams = new URLSearchParams(link.split("?")[1]);
-      videoId = urlParams.get("v");
-    }
-    else if(link.includes("youtu.be")) {
-      videoId = link.split("/").pop();
-    }
-
-    if(videoId) {
-      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-    }
-    return link;
-  }
-
-  // Ambil materi dari Firebase
-  firebase.database().ref("materiTambahan/11").on("value", snapshot => {
+  // Ambil semua kelas (10, 11, 12) atau ganti sesuai kebutuhan
+  firebase.database().ref("materi").on("value", snapshot => {
     daftarMateriDiv.innerHTML = "";
 
     if (!snapshot.exists()) {
-      daftarMateriDiv.innerHTML = "<p>Belum ada materi tambahan untuk kelas 11.</p>";
+      daftarMateriDiv.innerHTML = "<p>Belum ada materi tambahan.</p>";
       return;
     }
 
-    snapshot.forEach(semesterSnap => {
-      const semesterKey = semesterSnap.key;
-      semesterSnap.forEach(childSnap => {
-        const data = childSnap.val();
+    snapshot.forEach(kelasSnap => {
+      const kelasKey = kelasSnap.key;
 
-        let konten = data.kontenMateri || "Konten materi belum tersedia";
-        if(konten.includes("youtube.com") || konten.includes("youtu.be")) {
-          konten = convertYoutubeLinkToIframe(konten);
-        }
+      kelasSnap.forEach(semesterSnap => {
+        const semesterKey = semesterSnap.key;
 
-        const materiCard = document.createElement("div");
-        materiCard.className = "materi-card";
-        materiCard.innerHTML = `
-          <h3>${data.judulMateri || "Judul Materi"}</h3>
-          <div>${konten}</div>
-          <small>Semester: ${semesterKey}</small>
-        `;
-        daftarMateriDiv.appendChild(materiCard);
+        semesterSnap.forEach(materiSnap => {
+          const data = materiSnap.val();
+          let konten = data.konten || "";
+
+          // 🔥 FORCE LINK YOUTUBE → IFRAME
+          konten = konten.replace(
+            /(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})[^\s]*)/g,
+            `<iframe width="300" height="170"
+              src="https://www.youtube.com/embed/$2" 
+              allowfullscreen>
+            </iframe>`
+          );
+
+          const div = document.createElement("div");
+          div.className = "materi-item";
+          div.innerHTML = `
+            <h3>${data.judul || "Judul Materi"}</h3>
+            <div>${konten}</div>
+            <small>Kelas: ${kelasKey} | Semester: ${semesterKey}</small>
+          `;
+
+          daftarMateriDiv.appendChild(div);
+        });
       });
     });
-  });
-
-  // Materi dari localStorage
-  const materiTambahanLS = JSON.parse(localStorage.getItem("materiTambahan")) || [];
-  materiTambahanLS.filter(m => m.kelas === "11").forEach(m => {
-    let konten = m.kontenMateri || "";
-    if(konten.includes("youtube.com") || konten.includes("youtu.be")) {
-      konten = convertYoutubeLinkToIframe(konten);
-    }
-
-    const materiCard = document.createElement("div");
-    materiCard.className = "materi-card";
-    materiCard.innerHTML = `
-      <h3>${m.judulMateri}</h3>
-      <div>${konten}</div>
-      <small>Semester: Tambahan</small>
-    `;
-    daftarMateriDiv.appendChild(materiCard);
   });
 });
